@@ -1,2 +1,3 @@
 class FreelancersController < ApplicationController
+     
 end

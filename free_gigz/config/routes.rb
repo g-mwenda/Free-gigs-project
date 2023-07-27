@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :messages
   resources :conversations
-  resources :review_ratings
+  resources :review_ratings 
   resources :completed_projects
   resources :proposals
   resources :job_listings
