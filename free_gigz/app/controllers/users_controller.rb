@@ -53,7 +53,35 @@
 #     params.permit(:username, :password, :email, :role)
 #   end
 # end
+
+
+
+
+
+
+
 class UsersController < ApplicationController
+  skip_before_action :authorize, only: [:create,:current_user ]
+  ###get current logged  in user
+def current_user
+  puts "Session User ID: #{session[:user_id]}"
+  user = User.find_by(id: session[:user_id])
+
+
+  if user
+    render json: {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      is_admin: user.is_admin,
+    }
+  else
+    render json: { error: "Not logged in" }, status: :not_found
+  end
+end
+
+
     # New action to render the form for creating a new user
     def new
       @user = User.new
