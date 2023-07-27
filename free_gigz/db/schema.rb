@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_080847) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_093920) do
   create_table "clients", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "company_name"
@@ -28,8 +28,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_080847) do
     t.date "completed_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "job_listing_id", null: false
     t.index ["client_id"], name: "index_completed_projects_on_client_id"
     t.index ["freelancer_id"], name: "index_completed_projects_on_freelancer_id"
+    t.index ["job_listing_id"], name: "index_completed_projects_on_job_listing_id"
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -116,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_080847) do
   add_foreign_key "clients", "users"
   add_foreign_key "completed_projects", "clients"
   add_foreign_key "completed_projects", "freelancers"
+  add_foreign_key "completed_projects", "job_listings"
   add_foreign_key "conversations", "clients"
   add_foreign_key "conversations", "freelancers"
   add_foreign_key "conversations", "last_messages"
