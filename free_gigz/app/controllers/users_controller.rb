@@ -61,7 +61,7 @@
 
 
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: [:create,:current_user ]
+  skip_before_action :authorize, only: [:index,:create,:current_user ]
   ###get current logged  in user
 def current_user
   puts "Session User ID: #{session[:user_id]}"
@@ -91,9 +91,11 @@ end
     def create
       @user = User.new(user_params)
       if @user.save
-        redirect_to @user, notice: 'User was successfully created.'
+        # redirect_to @user, notice: 'User was successfully created.'
+        render json: @user, status: :created
       else
-        render :new
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+        # render :new
       end
     end
   
@@ -136,7 +138,7 @@ end
     private
   
     def user_params
-      params.permit(:username, :password_digest, :email, :role)
+      params.permit(:username, :password, :email, :role)
     end
   end
   
