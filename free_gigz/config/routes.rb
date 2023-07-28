@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  post "/login", to:"sessions#create"
+  delete "/logout", to:"sessions#destroy"
+  get "/current_user", to:"users#current_user"
+
   resources :messages
   resources :conversations
   resources :review_ratings 
@@ -33,6 +37,10 @@ Rails.application.routes.draw do
   # PATCH  /users/:id(.:format)      users#update
   # PUT    /users/:id(.:format)      users#update
   # DELETE /users/:id(.:format)      users#destroy
+
+
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

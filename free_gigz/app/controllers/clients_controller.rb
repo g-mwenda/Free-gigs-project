@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   # New action to render the form for creating a new client
+  skip_before_action :authorize, only: [:index,:create]
   def new
     @client = Client.new
   end
@@ -8,9 +9,9 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      redirect_to @client, notice: 'Client was successfully created.'
+      render json: @client, status: :created
     else
-      render :new
+      render json: { errors: @client.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -53,7 +54,7 @@ class ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client)permit(:company_name, :company_info, :profile_picture)
+    params.permit(:user_id, :company_name, :company_info, :profile_picture)
   end
 
 end

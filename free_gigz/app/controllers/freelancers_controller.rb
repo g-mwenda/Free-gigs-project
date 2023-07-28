@@ -1,4 +1,5 @@
 class FreelancersController < ApplicationController
+  skip_before_action :authorize, only: [:index,:create]
     def new
         @freelancer = Freelancer.new
       end
@@ -7,9 +8,9 @@ class FreelancersController < ApplicationController
       def create
         @freelancer = Freelancer.new(freelancer_params)
         if @freelancer.save
-          redirect_to @freelancer, notice: 'Freelancer was successfully created.'
+          render json: @freelancer, status: :created
         else
-          render :new
+          render json: { errors: @freelancer.errors.full_messages }, status: :unprocessable_entity
         end
       end
     # Index action to display a all freelancers !! ISH-WORKS, no data to display due to CREATE
@@ -50,7 +51,8 @@ class FreelancersController < ApplicationController
       private
     
       def freelancer_params
-        params.permit(:name, :portfolio, :skills,  :profile_pic)
+        params.permit(:user_id, :name, :portfolio, :skills,  :profile_picture)
+        # .require(:user)
         # .require(:freelancer)
       end
 end
