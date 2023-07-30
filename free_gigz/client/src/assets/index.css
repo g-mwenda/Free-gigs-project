@@ -1,0 +1,113 @@
+:root {
+  --purple-freelancer: rgb(84, 77, 184);
+  --label-red: rgb(184, 77, 77);
+  --grey: rgb(212, 208, 208);
+  --grey-dark: rgb(146, 143, 143);
+  --green-buyer: rgb(19 135 86);
+  --label-body: rgb(240, 242, 245);
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--label-body);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+form.posting-form__form,
+.form-formatting {
+  background-color: white;
+  padding: 25px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 5px 10px 20px 0px rgba(0, 0, 0, 0.19);
+}
+
+form.posting-form__form,
+.form-formatting,
+div.login__signup__switch__container {
+  max-width: 60%;
+  margin: auto;
+}
+
+div.posting-form__action-buttons-div {
+  margin: auto;
+  display: inline-flex;
+  width: 100%;
+}
+
+div.add-edit-button-div {
+  text-align: center;
+  margin: 20px;
+}
+
+/* Profile */
+div.profile-change-container {
+  margin: 100px;
+}
+
+form + form {
+  margin-top: 20px;
+}
+
+.colors-freelancer, .navbar-colors-freelancer, .opposite-colors-buyer {
+  background-color: var(--purple-freelancer);
+  color: white;
+}
+
+.navbar-colors-freelancer:hover, .inverse-button-colors-freelancer:hover {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--purple-freelancer);
+  color: var(--purple-freelancer);
+  color: var(--purple-freelancer);
+}
+
+.navbar-colors-buyer:hover, .inverse-button-colors-buyer:hover {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--green-buyer);
+  color: var(--green-buyer);
+}
+
+.colors-buyer, .navbar-colors-buyer, .opposite-colors-freelancer {
+  background-color: var(--green-buyer);
+  color: white;
+}
+
+.text-colors-freelancer {
+  color: var(--purple-freelancer);
+}
+
+.text-colors-buyer {
+  color: var(--green-buyer);
+}
+
+.page-header {
+  text-align: center;
+  font-style: italic;
+  margin: 4vh;
+}
+
+.colors-grey,
+.active,
+.active-conversation {
+  background-color: var(--grey);
+}
+
+.scroll-to-top__div {
+  position: fixed;
+  width: 100%;
+  left: 95%;
+  bottom: 60px;
+  height: 20px;
+  font-size: 3rem;
+  z-index: 1;
+  cursor: pointer;
+}
