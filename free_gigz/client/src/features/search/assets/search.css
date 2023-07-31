@@ -1,0 +1,38 @@
+.result__div {
+  text-align: center;
+  padding: 20px;
+  margin: auto;
+  height: auto;
+  /* display: inline-block; */
+  /* display: inline-grid; */
+  width: 50%;
+  box-sizing: border-box;
+	/* box-shadow: 2px 2px 25px 0px; */
+  margin-top: 20px;
+}
+
+h2.result__header-text {
+  margin-bottom: 5px;
+  margin-top: 0px
+}
+
+h4 {
+  margin: 0px;
+  font-style: italic;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+span {
+  margin-top: 0px;
+}
+
+.result__categories {
+  padding: 5px;
+}
+
+.search-results-list__div {
+  margin-bottom: 100px;
+}

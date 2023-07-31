@@ -1,0 +1,49 @@
+.posting-list__div {
+  padding: 20px;
+  text-align: center; 
+}
+
+.posting__header { 
+  font-weight: bold;
+  margin: 10px 0px;
+  height: 75px;
+}
+
+.posting__price-info {
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.posting__category {
+  margin: 20px;
+  padding: 2px 5px;
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px 2px;
+}
+
+.posting__action-buttons-div {
+  margin: auto;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.posting-form__categories-paragraph {
+  margin-bottom: 20px;
+  margin-top: 0px;
+  font-style: italic;
+}
+
+.posting-form__select-dropdown-field {
+  display: inline-block;
+  width: 95%;
+}
+
+.posting-form__select-dropdown-button {
+  width: 5%;
+  font-size: 15px;
+  font-weight: bold;
+  padding: .5em;
+  text-align: center;
+}
