@@ -1,50 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "../pages/Login";
-import Postings from "../pages/Postings";
-import Search from "../pages/Search";
-import Projects from "../pages/Projects";
-import Conversations from "../pages/Conversations";
-import Profile from "../pages/Profile";
-import ScrollButton from "./ScrollToTop";
-import NavbarComponent from "./NavbarComponent";
+import Login from "./Login";
+import SignUpForm from "./SignUpForm";
+import Home from "./Home";
+import PostingForm from "./PostingForm";
 import { SystemModeProvider } from "../SystemModeContext";
-import Home from "../pages/Home";
-
-/**
- * App Hierarchy
- *
- * App
- * ├─── Postings
- *      ├─── Freelancer Postings
- *           ├─── Posting
- *           ├─── Posting
- *           └─── Posting
- *      └─── Buyer Postings
- *           ├─── Posting
- *           ├─── Posting
- *           └─── Posting
- * ├─── Search
- *      ├─── User
- *      ├─── User
- *      └─── User
- * ├─── Conversations
- *      ├─── Conversation
- *           ├─── Message
- *           ├─── Message
- *           └─── Message
- *      ├─── Conversation
- *      └─── Conversation
- * ├─── Projects
- *      ├─── Project Form
- *      └─── List List
- *           ├─── Project
- *           ├─── Project
- *           └─── Project
- * └─── Profile
- *
- */
+import LandingPage from "./LandingPage";
 
 const UserContext = React.createContext();
 
@@ -54,14 +17,11 @@ export function useUser() {
 
 function App() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
 
   function handleLogout() {
     fetch("/logout", {
@@ -74,33 +34,24 @@ function App() {
         setUser(null);
       }
     });
+    navigate("/login");
   }
 
-  if (!user) return <Login onLogin={setUser} />;
+  // if (user === null) return <LandingPage />;
 
   return (
     <>
       <UserContext.Provider value={user}>
         <SystemModeProvider>
-          <NavbarComponent onLogoutClick={handleLogout} />
           <div className="App">
             <Routes>
-              <Route exact path="/pages/postings" element={<Postings />} />
-              <Route exact path="/pages/search" element={<Search />} />
-              <Route
-                exact
-                path="/pages/conversations"
-                element={<Conversations />}
-              />
-              <Route exact path="/pages/projects" element={<Projects />} />
-              <Route
-                exact
-                path="/pages/profile"
-                element={<Profile onDelete={handleLogout} />}
-              />
-              <Route path="/" element={<Home />} />
+              <Route exact path="/" element={<LandingPage />} />
+              <Route exact path="/login" element={<Login onLogin={handleLogin} />} />
+              <Route path="/home" element={<Home user={user} />} />
+              <Route exact path="/postings" element={<PostingForm />} />
+              {/* Remove / path from SignUpForm */}
+              <Route path="/signup" element={<SignUpForm />} />
             </Routes>
-            <ScrollButton />
           </div>
         </SystemModeProvider>
       </UserContext.Provider>

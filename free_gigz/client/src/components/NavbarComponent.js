@@ -1,8 +1,8 @@
 import React from "react";
 import "../assets/index.css";
 import { useSystemMode, useSystemModeUpdate } from "../SystemModeContext";
-import { Navbar, Nav } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function NavbarComponent({ onLogoutClick }) {
   const systemMode = useSystemMode();
@@ -12,35 +12,61 @@ export default function NavbarComponent({ onLogoutClick }) {
     <Navbar bg="light" expand="lg">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <LinkContainer to="/pages/postings">
-            <Nav.Link>Postings</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/pages/search">
-            <Nav.Link>Search</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/pages/conversations">
-            <Nav.Link>Conversations</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/pages/projects">
-            <Nav.Link>Projects</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/pages/profile">
-            <Nav.Link>Profile</Nav.Link>
-          </LinkContainer>
-        </Nav>
+        <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+            <Link to="/signup" className="nav-link">
+              Sign Up
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/postings" className="nav-link">
+              Postings
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/home" className="nav-link">
+              Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-link">
+              Landing Page
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/search" className="nav-link">
+              Search
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/conversations" className="nav-link">
+              Conversations
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/projects" className="nav-link">
+              Projects
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/profile" className="nav-link">
+              Profile
+            </Link>
+          </li>
+        </ul>
       </Navbar.Collapse>
-      <div class="navbar bg-body-tertiary">
-        <form class="container-fluid justify-content-start">
+      <div className="navbar bg-body-tertiary">
+        <form className="container-fluid justify-content-start">
           <button
-            class={`btn me-3 navbar-colors-${systemMode.toLowerCase()}`}
+            className={`btn me-3 navbar-colors-${systemMode.toLowerCase()}`}
             type="button"
             onClick={toggleSystemMode}
           >
             Switch to {systemMode === "Freelancer" ? "Buying" : "Freelancing"}
           </button>
           <button
-            class="btn btn-outline-danger btn-outline-secondary"
+            className="btn btn-outline-danger btn-outline-secondary"
             type="button"
             onClick={() => onLogoutClick()}
           >
