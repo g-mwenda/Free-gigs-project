@@ -72,7 +72,7 @@ export default function Login({ onLogin }) {
         </div>
             {/* ... Login form fields ... */}
             <div class="text-center m-3">
-              <button className="btn btn-success mb-0 fs-4" type="submit">
+              <button className="btn btn-primary mb-0 fs-4" type="submit">
                 Submit
               </button>
             </div>
