@@ -3,10 +3,19 @@ import "../assets/index.css";
 import { useSystemMode, useSystemModeUpdate } from "../SystemModeContext";
 import { Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent({ onLogoutClick }) {
   const systemMode = useSystemMode();
   const toggleSystemMode = useSystemModeUpdate();
+  const navigate = useNavigate();
+
+
+  function onLogoutClick() {
+    // Implement your logout logic here, if needed
+    // For now, let's just redirect to the landing page
+    navigate("/");
+  }
 
   return (
     <Navbar bg="light" expand="lg">
