@@ -8,9 +8,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleLogin() {
-    navigate("/login");
-  }
+  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,6 +39,9 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         console.error("Signup Error:", error);
         // Handle error, e.g., show an error message to the user
       });
+  }
+  function handleLogin() {
+    navigate("/login");
   }
 
   return (
@@ -73,16 +74,19 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
           <label htmlFor="floatingEmail">Email</label>
         </div>
 
-        <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
+        <div className="form-floating mb-3 dropdown">
+          <select
+            className="form-select"
             id="floatingRole"
             name="role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            placeholder="role"
-          />
+          >
+            <option value="">Select Role</option>
+            <option value="Freelancer">Freelancer</option>
+            <option value="client">client</option>
+            {/* Add more role options as needed */}
+          </select>
           <label htmlFor="floatingRole">Role</label>
         </div>
 
@@ -101,7 +105,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
 
         <div className="text-center m-3">
           <button
-            className="btn btn-success mb-0 fs-4"
+            className="btn btn-primary mb-0 fs-4"
             type="submit"
             onClick={handleLogin}
           >
