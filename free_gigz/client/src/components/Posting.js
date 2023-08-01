@@ -1,14 +1,14 @@
 import React from "react";
-import { useSystemMode } from "../../../SystemModeContext";
+
 
 export default function Posting({ posting, onEdit, onDelete }) {
-  const systemMode = useSystemMode();
+  
 
   return (
     <>
       <div class="card text-center w-50 d-flex mx-auto mb-4">
         <div
-          class={`card-header fw-bold text-uppercase text-white colors-${systemMode.toLowerCase()}`}
+          class={"card-header fw-bold text-uppercase text-white colors"}
         >
           {posting.title}
         </div>

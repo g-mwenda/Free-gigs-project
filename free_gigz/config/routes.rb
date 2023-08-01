@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   post "/login", to:"sessions#create"
   delete "/logout", to:"sessions#destroy"
-  get "/current_user", to:"users#current_user"
+  get "/me", to:"users#current_user"
+  post "/signup", to:"users#create"
 
   resources :messages
   resources :conversations

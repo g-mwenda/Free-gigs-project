@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { useSystemMode } from "../../../SystemModeContext";
-import voca from "voca";
-import Error from "../../../components/Error";
+import NavbarComponent from "./NavbarComponent";
 
 export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
-  const systemMode = useSystemMode();
-
   const [currentPosting, setCurrentPosting] = useState(() => {
     if (posting) {
       return {
@@ -37,7 +33,7 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
     const name = e.target.name.replace("-", "_");
     let value = e.target.value;
 
-    if (name === "price-unit") {
+    if (name === "price_unit") {
       value = value.replace(" ", "_").toLowerCase();
     }
 
@@ -48,7 +44,7 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
   }
 
   function handleCategoryUpdate(e) {
-    const category = voca.titleCase(e.target.value.replace("-", " "));
+    const category = toTitleCase(e.target.value.replace("-", " "));
     const index = categories.indexOf(category);
     if (index > -1) {
       setCategories(
@@ -61,22 +57,25 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
     }
   }
 
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit({
       ...currentPosting,
       price: parseInt(currentPosting.price),
-      price_unit: voca.titleCase(currentPosting.price_unit),
+      price_unit: toTitleCase(currentPosting.price_unit),
       categories: [...categories],
     });
   }
 
+  
   return (
     <div className="posting-form__div">
-      <form
-        className="posting-form__form mt-3"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+      <NavbarComponent/>
+      <form className="posting-form__form mt-3" onSubmit={(e) => handleSubmit(e)}>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -87,13 +86,8 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
             value={currentPosting.title}
             onChange={(e) => handleChange(e)}
           />
-          <label
-            class={`text-colors-${systemMode.toLowerCase()}`}
-            for="floating-posting-form-title"
-          >
-            {systemMode === "Freelancer"
-              ? "What Are You Offering?"
-              : "Where Do You Need Assistance?"}
+          <label class="text-colors" for="floating-posting-form-title">
+            What Are You Offering?
           </label>
         </div>
         <div class="form-floating mb-3">
@@ -107,15 +101,11 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
             onChange={(e) => handleChange(e)}
             placeholder="Enter your description here"
           />
-          <label
-            class={`text-colors-${systemMode.toLowerCase()}`}
-            for="floating-posting-form-description"
-          >
-            {systemMode === "Freelancer"
-              ? "Describe Your Offering"
-              : "Describe Your Need"}
+          <label class="text-colors" for="floating-posting-form-description">
+            Describe Your Offering
           </label>
         </div>
+        
         <div class="mb-3">
           <div class="form-floating input-group mb-2">
             <select
@@ -150,7 +140,7 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
               <option value="writing">Writing</option>
             </select>
             <label
-              class={`text-colors-${systemMode.toLowerCase()}`}
+              class={"text-colors"}
               for="floating-posting-form-categories"
             >
               Select One or More Categories
@@ -183,7 +173,7 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
               placeholder="Enter your price here"
             />
             <label
-              class={`text-colors-${systemMode.toLowerCase()}`}
+              class={"text-colors"}
               for="floating-posting-form-price"
             >
               Price
@@ -202,7 +192,7 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
             <option value="hourly">Hourly</option>
             <option value="daily">Daily</option>
           </select>
-          <label for="floating-posting-form-price-unit" class={`text-colors-${systemMode.toLowerCase()}`}>Price Category</label>
+          <label for="floating-posting-form-price-unit" class={"text-colors"}>Price Category</label>
         </div>
         <div class="text-center">
           <div class="btn-group card-footer text-muted">
@@ -216,10 +206,12 @@ export default function PostingForm({ posting, onSubmit, onCancel, errors }) {
             </form>
           </div>
         </div>
-        {errors.map((error) => {
-          return <Error key={error} error={error} />;
-        })}
-      </form>
+              </form>
     </div>
   );
 }
+
+
+
+
+
