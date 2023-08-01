@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 export default function NavbarComponent({ onLogoutClick }) {
   const systemMode = useSystemMode();
   const toggleSystemMode = useSystemModeUpdate();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
-  function onLogoutClick() {
-    // Implement your logout logic here, if needed
-    // For now, let's just redirect to the landing page
-    navigate("/");
-  }
+  // function onLogoutClick() {
+  //   // Implement your logout logic here, if needed
+  //   // For now, let's just redirect to the landing page
+  //   navigate("/");
+  // }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -25,6 +25,24 @@ export default function NavbarComponent({ onLogoutClick }) {
         <li className="nav-item">
             <Link to="/signup" className="nav-link">
               Sign Up
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/joblisting" className="nav-link">
+              Job Listing
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/joblistingform" className="nav-link">
+              Job Listing Form
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/completedform" className="nav-link">
+              Completed Projects
             </Link>
           </li>
 

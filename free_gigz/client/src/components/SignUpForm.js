@@ -30,7 +30,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         console.log(response.success)
         if (response.success) {
           return response.success;
-          nav("/login")
+          navigate("/login")
         } else {
           throw new Error("Signup failed");
         }
@@ -110,7 +110,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
           <button
             className="btn btn-primary mb-0 fs-4"
             type="submit"
-            onClick={handleLogin}
+            onClick={handleSubmit}
           >
             Sign Up
           </button>
