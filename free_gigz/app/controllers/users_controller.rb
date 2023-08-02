@@ -93,7 +93,7 @@ end
       if @user.save
         UserMailer.with(user: @user).welcome_email.deliver_later
         # redirect_to @user, notice: 'User was successfully created.'
-        render json: @user, status: :created
+        render json: {success: "User created succesfully"}, status: :created
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
         # render :new

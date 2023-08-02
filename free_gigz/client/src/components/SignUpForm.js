@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router"
 
 export default function SignUpForm({ onLogin, setIsSignUp }) {
   const [username, setUsername] = useState("");
@@ -12,7 +13,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    console.log(username, email, password, role)
     fetch("/signup", {
       method: "POST",
       headers: {
@@ -24,10 +25,12 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         role,
         password,
       }),
-    })
+    }).then((response) => response.json())
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        console.log(response.success)
+        if (response.success) {
+          return response.success;
+          navigate("/login")
         } else {
           throw new Error("Signup failed");
         }
@@ -40,9 +43,9 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         // Handle error, e.g., show an error message to the user
       });
   }
-  function handleLogin() {
-    navigate("/login");
-  }
+  // function handleLogin() {
+  //   navigate("/login");
+  // }
 
   return (
     <>
@@ -107,7 +110,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
           <button
             className="btn btn-primary mb-0 fs-4"
             type="submit"
-            onClick={handleLogin}
+            onClick={handleSubmit}
           >
             Sign Up
           </button>

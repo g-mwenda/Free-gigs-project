@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function NavbarComponent({ onLogoutClick }) {
   const systemMode = useSystemMode();
   const toggleSystemMode = useSystemModeUpdate();
+  
   const navigate = useNavigate();
 
 
@@ -29,6 +30,24 @@ export default function NavbarComponent({ onLogoutClick }) {
           </li>
 
           <li className="nav-item">
+            <Link to="/joblisting" className="nav-link">
+              Job Listing
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/joblistingform" className="nav-link">
+              Job Listing Form
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/completedform" className="nav-link">
+              Completed Projects
+            </Link>
+          </li>
+
+          <li className="nav-item">
             <Link to="/postings" className="nav-link">
               Postings
             </Link>
@@ -41,6 +60,12 @@ export default function NavbarComponent({ onLogoutClick }) {
           <li className="nav-item">
             <Link to="/" className="nav-link">
               Landing Page
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/profile" className="nav-link">
+              Profile
             </Link>
           </li>
           <li className="nav-item">
@@ -58,11 +83,7 @@ export default function NavbarComponent({ onLogoutClick }) {
               Projects
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/profile" className="nav-link">
-              Profile
-            </Link>
-          </li>
+          
         </ul>
       </Navbar.Collapse>
       <div className="navbar bg-body-tertiary">
