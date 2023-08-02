@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ProposalsForm from "./ProposalsForm";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // Import AuthContext
 
 export default function JobListingItem({ job }) {
   const [showProposalsForm, setShowProposalsForm] = useState(false);
   const [showCompletedForm, setShowCompletedForm] = useState(false);
-  const navigate = useNavigate(); // Get the navigate function from useNavigate
+  const { current_user } = useContext(AuthContext); // Get the current_user object from AuthContext
+  const navigate = useNavigate();
 
   const handleBidClick = () => {
     setShowProposalsForm(true);
@@ -30,8 +32,12 @@ export default function JobListingItem({ job }) {
       <p>Description: {job.description}</p>
       <p>Budget: {job.budget}</p>
       <p>Deadline: {job.deadline}</p>
-      <button onClick={handleBidClick}>Bid</button>
-      <button onClick={handleCompletedClick}>Completed</button>
+      {current_user && current_user.role === "freelancer" && (
+        <>
+          <button onClick={handleBidClick}>Bid</button>
+          <button onClick={handleCompletedClick}>Completed</button>
+        </>
+      )}
       {showProposalsForm && <ProposalsForm job={job} onClose={() => setShowProposalsForm(false)} />}
     </div>
   );
