@@ -66,7 +66,8 @@ class UsersController < ApplicationController
 def current_user
   puts "Session User ID: #{session[:user_id]}"
   user = User.find_by(id: session[:user_id])
-
+  
+  
 
   if user
     render json: {
