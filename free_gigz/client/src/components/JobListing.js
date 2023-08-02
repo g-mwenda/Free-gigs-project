@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
 import ProposalsForm from "./ProposalsForm";
-import { useUser } from "./App"; // Update the path accordingly
 import NavbarComponent from "./NavbarComponent";
 import JobListingItem from "./JobListingItem"; // Import the JobListingItem component
+import { AuthContext } from "../context/AuthContext";
 
 export default function JobListing() {
   const [jobListings, setJobListings] = useState([]);
   const [proposalData, setProposalData] = useState({}); // Add proposalData state
-  const user = useUser(); // Access the user context using the useUser hook
+  const { current_user } = useContext(AuthContext); // Access the user context using the useUser hook
 
+  
   useEffect(() => {
     fetch("/job_listings")
       .then((response) => response.json())

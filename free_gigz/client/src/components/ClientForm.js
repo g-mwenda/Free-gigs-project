@@ -1,22 +1,23 @@
-import React, { useState } from "react";
-import { useUser } from "./App";
+import React, { useState, useContext} from "react";
+import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
-export default function ProfileForm() {
+export default function ClientForm() {
   const [company_name, setCompanyName] = useState("");
   const [company_info, setCompanyInfo] = useState("");
   const [profile_picture, setProfilePicture] = useState(""); // Changed to an empty string for URL input
-  const user = useUser(); // Access the user context using the useUser hook
+  const { current_user } = useContext(AuthContext);
+  // Access the user context using the useUser hook
   const navigate = useNavigate(); // Get the navigate function from useNavigate hook
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Check if the user object is available and has the 'id' property
-    if (user && user.id) {
+    if (current_user && current_user.role == "client") {
       // Create a FormData object to send the form data
       const formData = new FormData();
-      formData.append("user_id", user.id);
+      formData.append("user_id", current_user.id);
       formData.append("company_name", company_name);
       formData.append("company_info", company_info);
       formData.append("profile_picture", profile_picture);
@@ -45,13 +46,13 @@ export default function ProfileForm() {
         });
     } else {
       // Handle the case when the user object is null or doesn't have the 'id' property
-      console.error("User ID not available. Cannot submit profile.");
+      console.error("User is not a client. Cannot submit profile.");
     }
   };
 
   return (
     <div>
-      <h2>Create Profile</h2>
+      <h2>Create Client</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="company_name">Company Name:</label>

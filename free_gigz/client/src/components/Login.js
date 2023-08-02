@@ -1,43 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
+import { AuthContext } from '../context/AuthContext'
+
 
 export default function Login({ onLogin }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [showLogin, setShowLogin] = useState(true);
-  const navigate = useNavigate();
-
-  function handleSignUpClick() {
-    navigate("/signup");
-  }
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
   
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
 
-  function handleSubmit(e) {
-    e.preventDefault();
+    // function handleLogin() {
+    //   // Navigate to the login page when "Get Started" is clicked
 
-    fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => onLogin(user));
-        navigate("/home"); // Redirect to home page on successful login
-      } else {
-        console.log("Failed Login");
-      }
-    });
-  }
+    //   navigate("/home");
+    // }
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+  
+      login(username, password);
+      setPassword("")
+      setUsername("")
+      navigate("/home");
+      
+    };
 
   return (
     <>
-      {showLogin ? (
+      
         <>
           <h1 className="page-header">Login Now</h1>
           <form className="form-formatting mb-5" onSubmit={handleSubmit}>
@@ -67,12 +59,12 @@ export default function Login({ onLogin }) {
             onChange={(e) => {
               
               setPassword(e.target.value);
-            }}          />
+            }}/>
           <label for="floatingPassword">Password</label>
         </div>
             {/* ... Login form fields ... */}
             <div class="text-center m-3">
-              <button className="btn btn-primary mb-0 fs-4" type="submit">
+              <button className="btn btn-primary mb-0 fs-4" type="submit" onClick={handleSubmit}>
                 Submit
               </button>
             </div>
@@ -80,25 +72,25 @@ export default function Login({ onLogin }) {
               <h3>
                 <span>Don't Have an Account?</span>
               </h3>
-              <button className="btn btn-dark" onClick={() => setShowLogin(false)}>
+              <button className="btn btn-dark" type="submit">
                 Signup
               </button>
             </div>
           </form>
         </>
-      ) : (
+      
         <>
           <SignUpForm onLogin={onLogin} />
           <div class="text-center">
             <h3>
               <span>Already Have an Account?</span>
             </h3>
-            <button className="btn btn-dark" onClick={() => setShowLogin(true)}>
+            <button className="btn btn-dark" type="submit">
               Login
             </button>
           </div>
         </>
-      )}
+      
     </>
   );
 }
