@@ -1,6 +1,6 @@
 class JobListingsController < ApplicationController
   # ...
-
+  skip_before_action :authorize, only: [:index, :create  ]
   def index
     joblistings = JobListing.all
     render json: joblistings
@@ -16,6 +16,9 @@ class JobListingsController < ApplicationController
   end
 
   def create
+    user = User.find_by(id: session[:user_id])
+    puts("Hello")
+    puts(user.id)
     job_listing = JobListing.new(create_params)
 
     if job_listing.save
@@ -43,7 +46,7 @@ class JobListingsController < ApplicationController
   end
 
   def update_params
-    params.require(:job_listing).permit(:title, :description, :budget, :deadline)
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
   end
 
   def destroy
