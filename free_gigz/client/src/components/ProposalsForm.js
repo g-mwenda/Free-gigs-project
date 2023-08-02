@@ -1,52 +1,55 @@
-import React, { useState, useEffect } from "react";
-import ProposalsForm from "./ProposalsForm";
+import React, { useState } from "react";
 
-export default function JobListing() {
-  const [jobListings, setJobListings] = useState([]);
-  const [showProposalsForm, setShowProposalsForm] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(null);
+export default function ProposalsForm({ job, onClose }) {
+  const [projectDetails, setProjectDetails] = useState("");
+  const [costEstimate, setCostEstimate] = useState("");
+  const [timeline, setTimeline] = useState("");
 
-  useEffect(() => {
-    fetch("/job_listings")
-      .then((response) => response.json())
-      .then((data) => setJobListings(data))
-      .catch((error) => console.error("Error fetching job listings:", error));
-  }, []);
-
-  const handleProposalSubmit = (proposalData) => {
-    // Here you can submit the proposalData to the server
-    console.log("Proposal Data:", proposalData);
-
-    // Close the proposal form after submitting
-    setShowProposalsForm(false);
-    setSelectedJob(null);
-  };
-
-  const handleBidClick = (job) => {
-    setShowProposalsForm(true);
-    setSelectedJob(job);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you can submit the proposal data to the server using fetch or your preferred method
+    // Include the job listing ID, freelancer ID (retrieved from the user context or props), projectDetails, costEstimate, and timeline
+    console.log({
+      jobListingId: job.id,
+      freelancerId: 1, // Replace with the freelancer ID from the user context or props
+      projectDetails,
+      costEstimate,
+      timeline,
+    });
+    onClose(); // Close the proposal form after submitting
   };
 
   return (
     <div>
-      <h2>Job Listings</h2>
-      {jobListings.map((job) => (
-        <div key={job.id}>
-          <h3>{job.title}</h3>
-          <p>Description: {job.description}</p>
-          <p>Budget: {job.budget}</p>
-          <p>Deadline: {job.deadline}</p>
-          <button onClick={() => handleBidClick(job)}>Bid</button>
+      <h3>Submit Proposal for {job.title}</h3>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Project Details:</label>
+          <input
+            type="text"
+            value={projectDetails}
+            onChange={(e) => setProjectDetails(e.target.value)}
+            required
+          />
         </div>
-      ))}
-
-      {showProposalsForm && (
-        <ProposalsForm
-          job={selectedJob}
-          onClose={() => setShowProposalsForm(false)}
-          onProposalSubmit={handleProposalSubmit}
-        />
-      )}
+        <div>
+          <label>Cost Estimate:</label>
+          <input
+            type="text"
+            value={costEstimate}
+            onChange={(e) => setCostEstimate(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Timeline:</label>
+          <input type="text" value={timeline} onChange={(e) => setTimeline(e.target.value)} required />
+        </div>
+        <button type="submit">Submit Proposal</button>
+        <button type="button" onClick={onClose}>
+          Cancel
+        </button>
+      </form>
     </div>
   );
 }

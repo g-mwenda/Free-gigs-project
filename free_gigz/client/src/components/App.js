@@ -12,6 +12,7 @@ import JobListing from "./JobListing";
 import JobListingForm from "./JobListingForm";
 import JobListingItem from "./JobListingItem";
 import CompletedForm from "./CompletedForm";
+import ProfileForm from "./ProfileForm";
 
 const UserContext = React.createContext();
 
@@ -66,6 +67,7 @@ function App() {
               <Route exact path="/joblisting" element={<JobListing />} />
               <Route exact path="/joblisting_item" element={<JobListingItem />} />
               <Route path="/completedform" element={<CompletedForm />} />
+              <Route exact path="/profile" element={<ProfileForm />} />
              
             </Routes>
           </div>
