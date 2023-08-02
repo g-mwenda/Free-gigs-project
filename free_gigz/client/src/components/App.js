@@ -13,6 +13,7 @@ import JobListingForm from "./JobListingForm";
 import JobListingItem from "./JobListingItem";
 import CompletedForm from "./CompletedForm";
 import ProfileForm from "./ProfileForm";
+import NavbarComponent from "./NavbarComponent";
 
 const UserContext = React.createContext();
 
@@ -56,7 +57,7 @@ function App() {
       <UserContext.Provider value={user}>
         <SystemModeProvider>
           <div className="App">
-            <Routes>
+                        <Routes>
               <Route exact path="/" element={<LandingPage />} />
               <Route exact path="/login" element={<Login onLogin={handleLogin} />} />
               <Route path="/home" element={<Home user={user} />} />
