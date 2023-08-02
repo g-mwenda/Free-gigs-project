@@ -12,7 +12,7 @@ export default function NavbarComponent() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <ul className="navbar-nav mr-auto">
-          {current_user ? (
+          {current_user && current_user.role === "client" && (
             <>
               <li className="nav-item">
                 <Link to="/joblisting" className="nav-link">
@@ -25,18 +25,21 @@ export default function NavbarComponent() {
                   Job Listing Form
                 </Link>
               </li>
-
-              {/* Add other navigation items for authenticated users */}
-            </>
-          ) : (
-            <>
               <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  Landing Page
+                <Link to="/freelancers" className="nav-link">
+                  Freelancers
                 </Link>
               </li>
-              {/* Add other navigation items for non-authenticated users */}
             </>
+            
+          )}
+
+          {current_user && current_user.role === "freelancer" && (
+            <li className="nav-item">
+              <Link to="/joblisting" className="nav-link">
+                Job Listing
+              </Link>
+            </li>
           )}
         </ul>
       </Navbar.Collapse>
@@ -68,4 +71,3 @@ export default function NavbarComponent() {
     </Navbar>
   );
 }
-

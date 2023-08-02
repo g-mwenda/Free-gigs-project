@@ -14,6 +14,7 @@ import JobListingItem from "./JobListingItem";
 import CompletedForm from "./CompletedForm";
 import ClientForm from "./ClientForm";
 import { AuthProvider } from "../context/AuthContext"
+import Freelancers from "./freelancers";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
               <Route exact path="/joblisting_item" element={<JobListingItem />} />
               <Route path="/completedform" element={<CompletedForm />} />
               <Route exact path="/client" element={<ClientForm />} />
+              <Route exact path="/freelancers" element={<Freelancers />} />
              
             </Routes>
           </div>
