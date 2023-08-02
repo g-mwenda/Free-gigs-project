@@ -134,7 +134,8 @@ end
       @user.destroy
       redirect_to users_url, notice: 'User was successfully deleted.'
     end
-  
+
+
     # Private method to permit the required parameters for creating a user
     private
   
