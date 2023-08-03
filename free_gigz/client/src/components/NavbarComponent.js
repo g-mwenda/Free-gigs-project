@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/img/logo.png"; // Update the path based on your project structure
 
 export default function NavbarComponent() {
   const { current_user, logout } = useContext(AuthContext);
@@ -16,7 +17,16 @@ export default function NavbarComponent() {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar
+      bg="light"
+      expand="lg"
+      style={{
+        background: "linear-gradient(to right, #F0F0F0, #D2B48C, #F0F0F0)",
+      }}
+    >
+     <Link to="/">
+        <img src={logo} height="100" width="100" alt="Logo" />
+      </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <ul className="navbar-nav mr-auto">
@@ -37,14 +47,26 @@ export default function NavbarComponent() {
                   Freelancers
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/client" className="nav-link">
+                  Client registration form
+                </Link>
+              </li>
             </>
           )}
           {current_user && current_user.role === "freelancer" && (
+            <>
             <li className="nav-item">
               <Link to="/joblisting" className="nav-link">
                 Job Listing
               </Link>
             </li>
+            <li className="nav-item">
+            <Link to="/freelancerform" className="nav-link">
+              Freelancer Reg
+            </Link>
+          </li>
+            </>
           )}
         </ul>
       </Navbar.Collapse>
@@ -55,6 +77,9 @@ export default function NavbarComponent() {
             <>
               <Link to="/" className="btn btn-success me-3">
                 Landing Page
+              </Link>
+              <Link to="/me" className="btn btn-success me-3">
+                Profile
               </Link>
               <button
                 className="btn btn-outline-danger btn-outline-secondary"

@@ -24,7 +24,7 @@ export default function Login() {
     <div>
       <NavbarComponent />
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", backgroundColor: "rgb(224, 180, 96)" }}>
+        <div style={{ display: "flex", backgroundColor: "#D2B48C" }}>
           {/* Login Image on the left */}
           <div style={{ flex: 1, marginLeft: "10px" }}>
             <img

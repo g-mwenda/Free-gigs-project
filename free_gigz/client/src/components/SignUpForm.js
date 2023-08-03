@@ -134,7 +134,7 @@ return (
     </div>
 
     {/* SignUp form on the right */}
-    <form className="form-formatting mb-5" onSubmit={handleSubmit} style={{ flex: 1, backgroundColor: "rgb(224, 180, 96)" }}>
+    <form className="form-formatting mb-5" onSubmit={handleSubmit} style={{ flex: 1, backgroundColor: "#D2B48C" }}>
     <h1 className="page-header" style={{ textAlign: "left" }}>Sign Up</h1>
       <div className="form-floating mb-3">
         <input

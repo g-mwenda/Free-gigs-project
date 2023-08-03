@@ -1,55 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-export default function ProposalsForm({ job, onClose }) {
+export default function ProposalsForm({ job }) {
   const [projectDetails, setProjectDetails] = useState("");
   const [costEstimate, setCostEstimate] = useState("");
   const [timeline, setTimeline] = useState("");
+  const { current_user } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    // Here you can submit the proposal data to the server using fetch or your preferred method
-    // Include the job listing ID, freelancer ID (retrieved from the user context or props), projectDetails, costEstimate, and timeline
-    console.log({
-      jobListingId: job.id,
-      freelancerId: 1, // Replace with the freelancer ID from the user context or props
-      projectDetails,
-      costEstimate,
-      timeline,
-    });
-    onClose(); // Close the proposal form after submitting
-  };
+    if (current_user && current_user.role === 'freelancer') {
+      const proposal = {
+        freelancer_id: current_user.id,
+        job_listing_id: job.id, // You need to provide the job_listing_id from the 'job' prop
+        // project_details:
+         projectDetails,
+        // cost_estimate: 
+        costEstimate,
+        // timeline: 
+        timeline,
+      };
+
+      fetch("proposals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(proposal),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Proposal created successfully:", data);
+        })
+        .catch((error) => {
+          console.log("Error creating proposal");
+        });
+    }
+  }
 
   return (
     <div>
-      <h3>Submit Proposal for {job.title}</h3>
-      <form onSubmit={handleSubmit}>
+      {current_user && current_user.role === "freelancer" ? (
         <div>
-          <label>Project Details:</label>
-          <input
-            type="text"
-            value={projectDetails}
-            onChange={(e) => setProjectDetails(e.target.value)}
-            required
-          />
+          <h3>Submit Proposal for {job.title}</h3>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Project Details:</label>
+              <input
+                type="text"
+                value={projectDetails}
+                onChange={(e) => setProjectDetails(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>Cost Estimate:</label>
+              <input
+                type="number"
+                value={costEstimate}
+                onChange={(e) => setCostEstimate(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>Timeline:</label>
+              <input
+                type="number"
+                value={timeline}
+                onChange={(e) => setTimeline(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Submit Proposal</button>
+            <button type="button">Cancel</button>
+          </form>
         </div>
-        <div>
-          <label>Cost Estimate:</label>
-          <input
-            type="text"
-            value={costEstimate}
-            onChange={(e) => setCostEstimate(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Timeline:</label>
-          <input type="text" value={timeline} onChange={(e) => setTimeline(e.target.value)} required />
-        </div>
-        <button type="submit">Submit Proposal</button>
-        <button type="button" onClick={onClose}>
-          Cancel
-        </button>
-      </form>
+      ) : (
+        <p>Not allowed to perform this operation</p>
+      )}
     </div>
   );
 }
