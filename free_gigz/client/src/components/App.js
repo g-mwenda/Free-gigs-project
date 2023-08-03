@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,55 +12,24 @@ import JobListing from "./JobListing";
 import JobListingForm from "./JobListingForm";
 import JobListingItem from "./JobListingItem";
 import CompletedForm from "./CompletedForm";
-import ProfileForm from "./ProfileForm";
-import NavbarComponent from "./NavbarComponent";
-
-const UserContext = React.createContext();
-
-export function useUser() {
-  return useContext(UserContext);
-}
+import ClientForm from "./ClientForm";
+import { AuthProvider } from "../context/AuthContext"
+import Freelancers from "./freelancers";
 
 function App() {
 
-  const [listings, setListings] = useState([]);
-
-  const handleJobSubmit = (newListing) => {
-    // Update the job listings state with the new job listing
-    setListings([...listings, newListing]);
-  };
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  const handleLogin = (userData) => {
-    setUser(userData);
-  };
-
-  function handleLogout() {
-    fetch("/logout", {
-      method: "DELETE",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-      },
-    }).then((r) => {
-      if (r.ok) {
-        setUser(null);
-      }
-    });
-    navigate("/login");
-  }
-
-  // if (user === null) return <LandingPage />;
-
+    // const handleLogin = (userData) => {
+  //   setUser(userData);
+  // };
   return (
     <>
-      <UserContext.Provider value={user}>
+      <AuthProvider>
         <SystemModeProvider>
           <div className="App">
                         <Routes>
               <Route exact path="/" element={<LandingPage />} />
-              <Route exact path="/login" element={<Login onLogin={handleLogin} />} />
-              <Route path="/home" element={<Home user={user} />} />
+              <Route exact path="/login" element={<Login/>} />
+              <Route path="/home" element={<Home  />} /> 
               <Route exact path="/postings" element={<PostingForm />} />
               {/* Remove / path from SignUpForm */}
               <Route path="/signup" element={<SignUpForm />} />
@@ -68,14 +37,50 @@ function App() {
               <Route exact path="/joblisting" element={<JobListing />} />
               <Route exact path="/joblisting_item" element={<JobListingItem />} />
               <Route path="/completedform" element={<CompletedForm />} />
-              <Route exact path="/profile" element={<ProfileForm />} />
+              <Route exact path="/client" element={<ClientForm />} />
+              <Route exact path="/freelancers" element={<Freelancers />} />
              
             </Routes>
           </div>
+          
         </SystemModeProvider>
-      </UserContext.Provider>
-    </>
+        </AuthProvider>
+
+     
+     </>
   );
 }
 
 export default App;
+
+
+
+  // const [listings, setListings] = useState([]);
+
+  // const handleJobSubmit = (newListing) => {
+  //   // Update the job listings state with the new job listing
+  //   setListings([...listings, newListing]);
+  // };
+  // const [user, setUser] = useState(null);
+  // const navigate = useNavigate();
+
+  // const handleLogin = (userData) => {
+  //   setUser(userData);
+  // };
+
+  // function handleLogout() {
+  //   fetch("/logout", {
+  //     method: "DELETE",
+  //     headers: {
+  //       "CONTENT-TYPE": "application/json",
+  //     },
+  //   }).then((r) => {
+  //     if (r.ok) {
+  //       setUser(null);
+  //     }
+  //   });
+  //   navigate("/login");
+  // }
+
+  // if (user === null) return <LandingPage />;
+//user={user}

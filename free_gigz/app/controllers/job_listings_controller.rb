@@ -1,10 +1,12 @@
 class JobListingsController < ApplicationController
   # ...
-
+  skip_before_action :authorize, only: [:index, :create  ]
   def index
-    joblistings = JobListing.all
+    joblistings = JobListing.includes(:client).all.as_json(include: { client: { only: :name } })
     render json: joblistings
   end
+  
+  
 
   def show
     joblisting = JobListing.find_by(id: params[:id])
@@ -16,6 +18,9 @@ class JobListingsController < ApplicationController
   end
 
   def create
+    user = User.find_by(id: session[:user_id])
+    puts("Hello")
+    puts(user.id)
     job_listing = JobListing.new(create_params)
 
     if job_listing.save
@@ -43,7 +48,7 @@ class JobListingsController < ApplicationController
   end
 
   def update_params
-    params.require(:job_listing).permit(:title, :description, :budget, :deadline)
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
   end
 
   def destroy

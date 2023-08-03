@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/LandingPage.css";
 import Footer from "./Footer";
+import NavbarComponent from "./NavbarComponent";
 
 const landingPageStyle = {
   height: "100vh",
@@ -39,6 +40,7 @@ export default function LandingPage() {
 
   return (
     <div>
+      <NavbarComponent />
     <div style={landingPageStyle}>
       <div style={imageContainerStyle}>
         <img
