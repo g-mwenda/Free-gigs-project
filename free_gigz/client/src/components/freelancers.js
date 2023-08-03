@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Freelancers.css'; // Import the CSS file for Freelancers component
+import NavbarComponent from './NavbarComponent';
 
-function Freelancers() {
+const Freelancers = () => {
   const [freelancers, setFreelancers] = useState([]);
+  const [showBack, setShowBack] = useState(false);
 
   useEffect(() => {
     fetchFreelancers();
@@ -26,16 +29,30 @@ function Freelancers() {
   };
 
   return (
-    <div>
+    <div className="freelancers-container">
+      <NavbarComponent />
       <h1>Freelancers</h1>
-      <ul>
-        {freelancers.map(freelancer => (
-          <li key={freelancer.id}>{freelancer.name}{freelancer.portfolio}{freelancer.skills}</li>
-          // Replace "id" and "name" with the actual properties of your freelancer object
+      <div className="freelancers-grid">
+        {freelancers.map((freelancer) => (
+          <div
+            className={`freelancer-item card ${showBack ? 'show-back' : ''}`}
+            key={freelancer.id}
+            onClick={() => setShowBack(!showBack)}
+          >
+            <div className="card-inner">
+              <div className="card-front">
+                <h2>{freelancer.name}</h2>
+              </div>
+              <div className="card-back">
+                <p>Portfolio: {freelancer.portfolio}</p>
+                <p>Skills: {freelancer.skills}</p>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
-}
+};
 
 export default Freelancers;

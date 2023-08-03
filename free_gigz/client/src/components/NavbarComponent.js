@@ -2,10 +2,18 @@ import React, { useContext } from "react";
 import "../assets/index.css";
 import { AuthContext } from "../context/AuthContext";
 import { Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent() {
   const { current_user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <Navbar bg="light" expand="lg">
@@ -19,7 +27,6 @@ export default function NavbarComponent() {
                   Job Listing
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link to="/joblistingform" className="nav-link">
                   Job Listing Form
@@ -31,9 +38,7 @@ export default function NavbarComponent() {
                 </Link>
               </li>
             </>
-            
           )}
-
           {current_user && current_user.role === "freelancer" && (
             <li className="nav-item">
               <Link to="/joblisting" className="nav-link">
@@ -45,13 +50,16 @@ export default function NavbarComponent() {
       </Navbar.Collapse>
       <div className="navbar bg-body-tertiary">
         <form className="container-fluid justify-content-start">
-          {current_user ? (
+          {/* Conditionally render the buttons based on the current path */}
+          {current_user && location.pathname !== "/login" && location.pathname !== "/signup" ? (
             <>
-              {/* Switch system mode button and other buttons */}
+              <Link to="/" className="btn btn-success me-3">
+                Landing Page
+              </Link>
               <button
                 className="btn btn-outline-danger btn-outline-secondary"
                 type="button"
-                onClick={logout}
+                onClick={handleLogout}
               >
                 Logout
               </button>

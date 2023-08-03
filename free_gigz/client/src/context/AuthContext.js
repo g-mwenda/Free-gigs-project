@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
         } 
         else {
           // If neither success nor error, show a generic error message
-          Swal.fire("Error", "Something went wrong", "error");
+          Swal.fire("Success", response.success, "success");
         }
       });
   };
@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
       .then((response) => {
         setCurrentUser(null);
         setonChange(!onChange);
-        nav("/");
+        nav("/login");
         
       });
   };
