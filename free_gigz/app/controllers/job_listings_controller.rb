@@ -30,9 +30,7 @@ class JobListingsController < ApplicationController
     end
   end
 
-  def create_params
-    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
-  end
+
 
   def update
     joblisting = JobListing.find_by(id: params[:id])
@@ -47,10 +45,6 @@ class JobListingsController < ApplicationController
     end
   end
 
-  def update_params
-    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
-  end
-
   def destroy
     joblisting = JobListing.find_by(id: params[:id])
     if joblisting
@@ -61,5 +55,18 @@ class JobListingsController < ApplicationController
     end
   end
 
+  private 
+  def create_params
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  end
+
+  def update_params
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  end
   # ...
 end
+
+
+  # def create_params
+  #   params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  # end
