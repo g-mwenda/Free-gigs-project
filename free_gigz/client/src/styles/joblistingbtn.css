@@ -1,0 +1,32 @@
+.btn {
+     transition: all 0.3s ease-in-out;
+     font-family: "Dosis", sans-serif;
+   }
+   
+   .btn-job {
+     width: 80px; /* Adjust the width as per your desired size */
+     height: 40px; /* Adjust the height as per your desired size */
+     border-radius: 50px;
+     background-image: linear-gradient(135deg, #000000 0%, #000000 100%);
+     box-shadow: 0 20px 30px -6px rgba(0, 0, 0, 0.5);
+     outline: none;
+     cursor: pointer;
+     border: none;
+     font-size: 10px; /* Adjust the font-size as per your desired size */
+     color: white;
+   }
+   
+   .button-container {
+     display: flex;
+     gap: 20px; /* Adjust the value as per your desired spacing */
+   }
+   
+   .btn-job:hover {
+     transform: translateY(3px);
+     box-shadow: none;
+   }
+   
+   .btn-job:active {
+     opacity: 0.5;
+   }
+   
