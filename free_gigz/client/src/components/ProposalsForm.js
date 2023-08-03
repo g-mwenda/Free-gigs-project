@@ -37,7 +37,7 @@ export default function ProposalsForm({ job }) {
 
   return (
     <div>
-      {current_user && current_user.role === "client" ? (
+      {current_user && current_user.role === "" ? (
         <div>
           <h3>Submit Proposal for {job.title}</h3>
           <form onSubmit={handleSubmit}>
