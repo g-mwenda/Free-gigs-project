@@ -17,6 +17,7 @@ import { AuthProvider } from "../context/AuthContext"
 import Freelancers from "./freelancers";
 import UserProfile from "./UserProfile";
 import ProposalsForm from "./ProposalsForm";
+import FreelancerForm from "./FreelancerForm";
 
 function App() {
 
@@ -42,7 +43,8 @@ function App() {
               <Route exact path="/client" element={<ClientForm />} />
               <Route exact path="/freelancers" element={<Freelancers />} />
               <Route exact path="/me" element={<UserProfile />} />  
-              <Route exact path="/proposals" element={<ProposalsForm  />} />           
+              <Route exact path="/proposals" element={<ProposalsForm  />} />
+              <Route exact path="/freelancerform" element={<FreelancerForm  />} />           
             </Routes>
           </div>
           

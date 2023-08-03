@@ -13,9 +13,12 @@ export default function ProposalsForm({ job }) {
       const proposal = {
         freelancer_id: current_user.id,
         job_listing_id: job.id, // You need to provide the job_listing_id from the 'job' prop
-        project_details: projectDetails,
-        cost_estimate: costEstimate,
-        timeline: timeline,
+        // project_details:
+         projectDetails,
+        // cost_estimate: 
+        costEstimate,
+        // timeline: 
+        timeline,
       };
 
       fetch("proposals", {
@@ -37,7 +40,7 @@ export default function ProposalsForm({ job }) {
 
   return (
     <div>
-      {current_user && current_user.role === "" ? (
+      {current_user && current_user.role === "freelancer" ? (
         <div>
           <h3>Submit Proposal for {job.title}</h3>
           <form onSubmit={handleSubmit}>
@@ -53,7 +56,7 @@ export default function ProposalsForm({ job }) {
             <div>
               <label>Cost Estimate:</label>
               <input
-                type="text"
+                type="number"
                 value={costEstimate}
                 onChange={(e) => setCostEstimate(e.target.value)}
                 required
@@ -62,7 +65,7 @@ export default function ProposalsForm({ job }) {
             <div>
               <label>Timeline:</label>
               <input
-                type="text"
+                type="number"
                 value={timeline}
                 onChange={(e) => setTimeline(e.target.value)}
                 required

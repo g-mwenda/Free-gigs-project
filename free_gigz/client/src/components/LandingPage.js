@@ -11,7 +11,7 @@ const landingPageStyle = {
   justifyContent: "flex-start", // Align content at the start (left side)
   alignItems: "center",
   padding: "0 0px", // Add some padding for better spacing
-  backgroundColor: "rgb(224, 180, 96)", // Add the background color here
+  backgroundColor: "#D2B48C", // Add the background color here
 
 
 };
