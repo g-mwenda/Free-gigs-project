@@ -15,7 +15,7 @@ export default function Home() {
       </div>
     );
   }
-
+ 
   // Render the Home component content if the user is not null and has a valid username
   return (
     <div>
