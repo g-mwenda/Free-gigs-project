@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   delete "/logout", to:"sessions#destroy"
   get "/me", to:"users#current_user"
   post "/signup", to:"users#create"
+  
+  patch "/reset", to:"passwords#update_password"
 
   resources :messages
   resources :conversations

@@ -29,11 +29,17 @@ export default function JobListingForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newJobListing),
+        body: 
+        JSON.stringify(newJobListing),
       })
         .then((response) => response.json())
         .then((data) => {
           // Handle successful submission, e.g., show a success message or redirect to another page
+          setTitle("");
+          setDescription("");
+          setBudget("");
+          setDeadline("");
+
           console.log("Job listing posted successfully:", data);
         })
         .catch((error) => {
@@ -68,6 +74,7 @@ export default function JobListingForm() {
               <div className="form-group">
                 <label htmlFor="description">Description:</label>
                 <textarea
+                type="text"
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -79,7 +86,7 @@ export default function JobListingForm() {
               <div className="form-group">
                 <label htmlFor="budget">Budget:</label>
                 <input
-                  type="text"
+                  type="number"
                   id="budget"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
