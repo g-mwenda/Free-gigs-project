@@ -5,6 +5,10 @@ import NavbarComponent from "./NavbarComponent";
 import JobListingItem from "./JobListingItem"; // Import the JobListingItem component
 import { AuthContext } from "../context/AuthContext";
 import joblistingcard from "../styles/joblistingcard.css"
+import joblistingbtn from "../styles/joblistingbtn.css"
+import { Link } from "react-router-dom";
+
+
 
 export default function JobListing() {
   const [jobListings, setJobListings] = useState([]);
@@ -45,21 +49,44 @@ export default function JobListing() {
               <ul className="card-social">
                 <li className="card-social__item">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    {/* ... Facebook SVG Path ... */}
                   </svg>
                 </li>
                 <li className="card-social__item">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    {/* ... Twitter SVG Path ... */}
                   </svg>
                 </li>
                 <li className="card-social__item">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    {/* ... Google+ SVG Path ... */}
                   </svg>
                 </li>
               </ul>
             </div>
+
+            {/* <div className="button-container">
+        {current_user && current_user.role === "freelancer" && ( 
+                      // <div className="button-container">
+                      <button className="btn-job">Bid</button>
+                      <button className="btn-job">Completed project</button>
+                      )}
+                      {current_user && current_user.role === "client" && (
+                      <button className="btn-job">Proposals</button>
+                      )}
+                      </div> */}
+       <div className="button-container">
+  {current_user && current_user.role === "freelancer" && (
+    <>
+        <Link to="/proposals">
+        <button className="btn-job">Bid</button>
+       </Link>
+      <button className="btn-job" style={{ width: '150px' }}>Completed project</button>
+    </>
+  )}
+  {current_user && current_user.role === "client" && (
+    <button className="btn-job">Proposals</button>
+  )}
+</div>
+
+            
           </div>
         ))}
       </div>

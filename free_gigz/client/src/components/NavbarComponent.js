@@ -37,6 +37,11 @@ export default function NavbarComponent() {
                   Freelancers
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/client" className="nav-link">
+                  Client registration form
+                </Link>
+              </li>
             </>
           )}
           {current_user && current_user.role === "freelancer" && (
@@ -55,6 +60,9 @@ export default function NavbarComponent() {
             <>
               <Link to="/" className="btn btn-success me-3">
                 Landing Page
+              </Link>
+              <Link to="/me" className="btn btn-success me-3">
+                Profile
               </Link>
               <button
                 className="btn btn-outline-danger btn-outline-secondary"

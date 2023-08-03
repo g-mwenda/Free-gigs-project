@@ -15,6 +15,8 @@ import CompletedForm from "./CompletedForm";
 import ClientForm from "./ClientForm";
 import { AuthProvider } from "../context/AuthContext"
 import Freelancers from "./freelancers";
+import UserProfile from "./UserProfile";
+import ProposalsForm from "./ProposalsForm";
 
 function App() {
 
@@ -39,7 +41,8 @@ function App() {
               <Route path="/completedform" element={<CompletedForm />} />
               <Route exact path="/client" element={<ClientForm />} />
               <Route exact path="/freelancers" element={<Freelancers />} />
-             
+              <Route exact path="/me" element={<UserProfile />} />  
+              <Route exact path="/proposals" element={<ProposalsForm  />} />           
             </Routes>
           </div>
           
