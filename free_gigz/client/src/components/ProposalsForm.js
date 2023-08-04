@@ -11,7 +11,7 @@ export default function ProposalsForm({ job }) {
     e.preventDefault();
     if (current_user && current_user.role === "freelancer") {
       const proposal = {
-        freelancer_id: current_user.id,
+        // freelancer_id: current_user.id,
         job_listing_id: job ? job.id : null, // Set job_listing_id to null if job prop is not provided
         project_details: projectDetails, // Updated to use underscore instead of camelCase
         cost_estimate: costEstimate, // Updated to use underscore instead of camelCase
