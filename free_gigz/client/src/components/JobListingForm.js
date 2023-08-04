@@ -17,7 +17,7 @@ export default function JobListingForm() {
     // Check if the user object is available and has the 'id' property
     if (current_user && current_user.role === 'client') {
       const newJobListing = {
-        client_id: current_user.id,
+        // client_id: current_user.id,
         title,
         description,
         budget,
