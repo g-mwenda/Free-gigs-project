@@ -73,7 +73,7 @@ export default function NavbarComponent() {
       <div className="navbar bg-body-tertiary">
         <form className="container-fluid justify-content-start">
           {/* Conditionally render the buttons based on the current path */}
-          {current_user && location.pathname !== "/login" && location.pathname !== "/signup" ? (
+          {current_user && location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/" ? (
             <>
               <Link to="/" className="btn btn-success me-3">
                 Landing Page

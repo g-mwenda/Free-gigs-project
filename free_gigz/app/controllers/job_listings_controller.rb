@@ -18,20 +18,26 @@ class JobListingsController < ApplicationController
   end
 
   def create
-    user = User.find_by(id: session[:user_id])
-    puts("Hello")
-    puts(user.id)
-    job_listing = JobListing.new(create_params)
+    
+    all_params = create_params.merge(client: client)
+    job_listing = JobListing.new(all_params)
+
 
     if job_listing.save
       render json: { success: "Job listing created successfully" }
     else
+      puts(job_listing.errors.full_messages)
       render json: { errors: job_listing.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def create_params
-    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+    user = User.find_by(id: session[:user_id])
+    puts("Hello")
+    puts(user.id)
+    client = Client.find_by(user_id: user.id)
+    puts(client.id)
+    params.require(:job_listing).permit( :title, :description, :budget, :deadline)
   end
 
   def update
@@ -48,7 +54,7 @@ class JobListingsController < ApplicationController
   end
 
   def update_params
-    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+    params.require(:job_listing).permit( :title, :description, :budget, :deadline, :client_id => 1)
   end
 
   def destroy
