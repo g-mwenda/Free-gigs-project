@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import NavbarComponent from "./NavbarComponent";
-import clientform from "../styles/clientform.css"
 // import freelancerform from "../styles/freelancerform.css";
 
 
