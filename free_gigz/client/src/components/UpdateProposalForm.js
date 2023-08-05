@@ -161,3 +161,6 @@ function UpdateProposalForm({ proposal, onClose }) {
 }
 
 export default UpdateProposalForm;
+
+
+

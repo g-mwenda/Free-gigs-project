@@ -13,6 +13,8 @@ import {
   MDBCardHeader,
 } from "mdb-react-ui-kit";
 
+// npm install mdb-react-ui-kit  
+
 export default function App() {
   const conversations = [
     {
