@@ -58,6 +58,11 @@ export default function NavbarComponent() {
                   Proposals
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/conversations" className="nav-link">
+                  conversations
+                </Link>
+              </li>
             </>
           )}
           {current_user && current_user.role === "freelancer" && (
@@ -77,6 +82,16 @@ export default function NavbarComponent() {
               <li className="nav-item">
                 <Link to="/jobproposals" className="nav-link">
                   Proposals
+                </Link>
+              </li>
+              <li className="nav-item">
+              <Link to="/clients" className="nav-link">
+                Clients
+              </Link>
+            </li>
+            <li className="nav-item">
+                <Link to="/conversations" className="nav-link">
+                  Conversations
                 </Link>
               </li>
             </>

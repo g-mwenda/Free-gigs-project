@@ -5,6 +5,19 @@ class ProposalsController < ApplicationController
       proposals = Proposal.includes(:freelancer).all.as_json(include: { freelancer: { only: :name} })
        render json: proposals
      end
+
+    # changes Tom// FAILED
+    # def index
+    #   client_id = current_client_id
+    #   if client_id
+    #     proposals = Proposal.where(job_listing_id: client_id)
+    #                         .includes(:freelancer)
+    #                         .as_json(include: { freelancer: { only: :name } })
+    #     render json: proposals
+    #   else
+    #     render json: { error: 'Client not found' }, status: :not_found
+    #   end
+    # end
    
      ###get single proposal by id 
      def show 

@@ -3,6 +3,7 @@ import "./jobListingForm.css"; // Import the CSS file
 import NavbarComponent from "./NavbarComponent";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import swal from "sweetalert2"; // Import SweetAlert
 
 export default function JobListingForm() {
   const [title, setTitle] = useState("");
@@ -29,22 +30,26 @@ export default function JobListingForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: 
-        JSON.stringify(newJobListing),
+        body: JSON.stringify(newJobListing),
       })
         .then((response) => response.json())
         .then((data) => {
-          // Handle successful submission, e.g., show a success message or redirect to another page
+          // Handle successful submission
           setTitle("");
           setDescription("");
           setBudget("");
           setDeadline("");
 
+          // Show success message using SweetAlert
+          swal("Success!", "Job listing posted successfully", "success");
           console.log("Job listing posted successfully:", data);
         })
         .catch((error) => {
-          // Handle error, e.g., show an error message to the user
+          // Handle error
           console.error("Error posting job listing:", error);
+
+          // Show error message using SweetAlert
+          swal("Error!", "Failed to post job listing", "error");
         });
     }
   }
