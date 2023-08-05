@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
      ###get all proposals
      skip_before_action :authorize, only: [:index, :create  ]
      def index 
-      proposals = Proposal.includes(:freelancer).all.as_json(include: { freelancer: { only: :name } })
+      proposals = Proposal.includes(:freelancer).all.as_json(include: { freelancer: { only: :name} })
        render json: proposals
      end
    
