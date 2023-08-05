@@ -19,9 +19,12 @@ class JobListingsController < ApplicationController
 
   def create
     
-    all_params = create_params.merge(client: client)
+ 
+    user = User.find_by(id: session[:user_id])
+    client = Client.find_by(user_id: user.id)
+  
+    all_params = create_params.merge(client: client) 
     job_listing = JobListing.new(all_params)
-
 
     if job_listing.save
       render json: { success: "Job listing created successfully" }

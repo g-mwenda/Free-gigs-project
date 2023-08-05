@@ -1,7 +1,11 @@
 import React, { useState, useContext } from "react";
 import ProposalsForm from "./ProposalsForm";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext"; // Import AuthContext
+import { AuthContext } from "../context/AuthContext";
+import joblistingcard from "../styles/joblistingcard.css";
+import joblistingbtn from "../styles/joblistingbtn.css"
+
+ // Import AuthContext
 
 export default function JobListingItem({ job }) {
   const [showProposalsForm, setShowProposalsForm] = useState(false);
@@ -28,14 +32,28 @@ export default function JobListingItem({ job }) {
 
   return (
     <div>
-      <h3>{job.title}</h3>
-      <p>Description: {job.description}</p>
-      <p>Budget: {job.budget}</p>
-      <p>Deadline: {job.deadline}</p>
+
+    
+<div class="jobcard">
+  <div class="jobcard-image">
+  <p class="jobtext-body">Deadline: {job.deadline}</p>
+  <p class="jobtext-body">Description: {job.description}</p>
+    <p class="jobtext-body">Budget: {job.budget}</p>
+  </div>
+  <div class="jobcard-description">
+    <h3 class="jobtext-title">{job.title}</h3>
+    {/* <h2 class="jobtext-title">{job.title}</h2> */}
+  </div>
+</div>
+
+
       {current_user && current_user.role === "freelancer" && (
         <>
-          <button onClick={handleBidClick}>Bid</button>
-          <button onClick={handleCompletedClick}>Completed</button>
+        <div></div>
+        <div className="button-container">
+          <button onClick={handleBidClick} className="btn btn-job ">Bid</button>
+          <button onClick={handleCompletedClick} className="btn btn-job">Completed</button>
+          </div>
         </>
       )}
       {showProposalsForm && <ProposalsForm job={job} onClose={() => setShowProposalsForm(false)} />}

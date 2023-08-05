@@ -38,40 +38,47 @@ export default function ProposalsForm({ job }) {
   return (
     <div>
       {current_user && current_user.role === "freelancer" ? (
-        <div>
-          <h3>Submit Proposal for {job && job.title}</h3>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Project Details:</label>
-              <input
-                type="text"
-                value={projectDetails}
-                onChange={(e) => setProjectDetails(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label>Cost Estimate:</label>
-              <input
-                type="number"
-                value={costEstimate}
-                onChange={(e) => setCostEstimate(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label>Timeline:</label>
-              <input
-                type="number"
-                value={timeline}
-                onChange={(e) => setTimeline(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Submit Proposal</button>
-            <button type="button">Cancel</button>
-          </form>
-        </div>
+        <div class="proposalcard">
+  <h4 class="proposaltitle">Submit Proposal for {job && job.title}</h4>
+  <form onSubmit={handleSubmit}>
+    <div class="proposalfield">
+      <label>Project Details:</label>
+      <input
+        type="text"
+        value={projectDetails}
+        onChange={(e) => setProjectDetails(e.target.value)}
+        required
+        placeholder="Project Details"
+        class="proposalinput-field"
+      />
+    </div>
+    <div class="proposalfield">
+      <label>Cost Estimate:</label>
+      <input
+        type="number"
+        value={costEstimate}
+        onChange={(e) => setCostEstimate(e.target.value)}
+        required
+        placeholder="Cost Estimate"
+        class="proposalinput-field"
+      />
+    </div>
+    <div class="proposalfield">
+      <label>Timeline:</label>
+      <input
+        type="date"
+        value={timeline}
+        onChange={(e) => setTimeline(e.target.value)}
+        required
+        placeholder="Timeline"
+        class="proposalinput-field"
+      />
+    </div>
+    <button type="submit">Submit Proposal</button>
+    <button type="button">Cancel</button>
+  </form>
+</div>
+
       ) : (
         <p>Not allowed to perform this operation</p>
       )}

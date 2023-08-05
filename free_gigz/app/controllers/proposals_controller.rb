@@ -1,7 +1,8 @@
 class ProposalsController < ApplicationController
      ###get all proposals
+     skip_before_action :authorize, only: [:index, :create  ]
      def index 
-       proposals = Proposal.all
+      proposals = Proposal.includes(:freelancer).all.as_json(include: { freelancer: { only: :name} })
        render json: proposals
      end
    
@@ -21,10 +22,16 @@ class ProposalsController < ApplicationController
      #   end
      # end
      def create
-          proposal = Proposal.new(create_params)
+      # freelancer = Freelancer.find(params[:freelancer_id])
+      user = User.find_by(id: session[:user_id])
+      freelancer = Freelancer.find_by(user_id: user.id)
+      all_params = create_params.merge(freelancer: freelancer)
+          proposal = Proposal.new(all_params)
+
           if proposal.save
             render json: { success: "Proposal created successfully" }
           else
+            puts(proposal.errors.full_messages)
             render json: { error: "Proposal has not been created" }
           end
         end
@@ -48,11 +55,16 @@ class ProposalsController < ApplicationController
        end
      end
 
-     private
+     
      def create_params
-          params.require(:proposal).permit(:freelancer_id, :job_listing_id, :project_details, :cost_estimate, :timeline)
-        end
-   
+      user = User.find_by(id: session[:user_id])
+      puts("Hello")
+      puts(user.id)
+      freelancer = Freelancer.find_by(user_id: user.id)
+      puts(freelancer.id)
+      params.require(:proposal).permit(:job_listing_id, :project_details, :cost_estimate, :timeline)
+    end
+    
      def update_params 
        params.require(:proposal).permit(:project_details, :cost_estimate, :timeline)
      end
