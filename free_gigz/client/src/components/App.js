@@ -22,6 +22,8 @@ import Proposals from "./Proposals";
 import Clients from "./Clients";
 import UpdateProposalForm from "./UpdateProposalForm"
 import  Conversations from "./Conversations";
+import AcceptedProposals from "./AcceptedProposals";
+import RejectedProposals from "./RejectedProposals";
 
 function App() {
   
@@ -53,7 +55,9 @@ function App() {
               <Route path="/conversations" element={<Conversations />} />
               <Route exact path="/jobproposals" element={<Proposals  />} />    
               <Route exact path="/clients" element={<Clients  />} />
-              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} />    
+              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} /> 
+              <Route exact path="/acceptedproposals" element={<AcceptedProposals />} /> 
+              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />   
                     {/*element={<UpdateProposalForm />}  */}
             </Routes>
             

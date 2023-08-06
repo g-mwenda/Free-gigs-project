@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { json, useNavigate } from "react-router-dom";
 import { useNavigate } from "react-router"
 import NavbarComponent from "./NavbarComponent";
+import Footer from "./Footer";
 
 
 export default function SignUpForm({ onLogin, setIsSignUp }) {
@@ -40,7 +41,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         onLogin(user);
       })
       .catch((error) => {
-        console.error("Signup Error:", error);
+        navigate("/login");
         // Handle error, e.g., show an error message to the user
       });
   }
@@ -121,6 +122,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
 //   );
 // }
 return (
+    <div>
   <div>
     <NavbarComponent/>
   <div style={{ display: "flex" }}>
@@ -202,6 +204,8 @@ return (
       </div>
     </form>
   </div>
+  </div>
+      <Footer/>
   </div>
 );
 }

@@ -27,7 +27,7 @@ export default function Home() {
     return (
       <div>
         {/* You can add a redirect logic here or show a link to the login page */}
-        <h1>Please log in to access the Home page.</h1>
+        <h1></h1>
       </div>
     );
   }

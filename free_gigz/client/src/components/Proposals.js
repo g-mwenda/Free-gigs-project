@@ -818,15 +818,17 @@ import NavbarComponent from './NavbarComponent';
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import proposals from "../styles/proposal.css";
+import AcceptedProposals from './AcceptedProposals';
+import RejectedProposals from './RejectedProposals';
 
 function Proposals() {
-  const [proposalsList, setProposalsList] = useState([]); // Changed the name to avoid naming conflict
   const { current_user } = useContext(AuthContext);
-  const [selectedProposalId, setSelectedProposalId] = useState(null);
   const [proposals, setProposals] = useState([]);
+  const [acceptedProposals, setAcceptedProposals] = useState([]);
+  const [rejectedProposals, setRejectedProposals] = useState([]);
   const navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
     fetch(`/proposals`)
       .then((response) => response.json())
       .then((data) => setProposals(data))
@@ -835,22 +837,21 @@ function Proposals() {
 
   const handleAccept = (proposalId) => {
     console.log(`Proposal ${proposalId} accepted`);
-    // Implement your logic for accepting a proposal
+    const acceptedProposal = proposals.find((proposal) => proposal.id === proposalId);
+    if (acceptedProposal) {
+      setAcceptedProposals((prevAcceptedProposals) => [...prevAcceptedProposals, acceptedProposal]);
+      setProposals((prevProposals) => prevProposals.filter((proposal) => proposal.id !== proposalId));
+    }
   };
 
   const handleReject = (proposalId) => {
     console.log(`Proposal ${proposalId} rejected`);
-    // Implement your logic for rejecting a proposal
+    const rejectedProposal = proposals.find((proposal) => proposal.id === proposalId);
+    if (rejectedProposal) {
+      setRejectedProposals((prevRejectedProposals) => [...prevRejectedProposals, rejectedProposal]);
+      setProposals((prevProposals) => prevProposals.filter((proposal) => proposal.id !== proposalId));
+    }
   };
-
-  const handleEdit = (proposalId) => {
-    console.log(`Editing proposal ${proposalId}`);
-    setSelectedProposalId(proposalId);
-    // Use the useNavigate hook to navigate to the UpdateProposalForm component
-    // You should have a proper route set up for UpdateProposalForm in your router configuration
-    navigate(`/updateproposal/${proposalId}`);
-  };
-  
 
   const handleDelete = (proposalId) => {
     console.log(`Deleting proposal ${proposalId}`);
@@ -908,7 +909,7 @@ function Proposals() {
                         <>
                           <button
                             className="custom-card-button btn btn-primary"
-                            onClick={() => handleEdit(proposal.id)}
+                            // onClick={() => handleEdit(proposal.id)}
                           >
                             Edit
                           </button>
@@ -928,10 +929,10 @@ function Proposals() {
           </div>
         ))}
       </div>
+      <AcceptedProposals acceptedProposals={acceptedProposals} />
+      <RejectedProposals rejectedProposals={rejectedProposals} />
     </div>
   );
 }
 
 export default Proposals;
-
-
