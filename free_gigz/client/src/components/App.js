@@ -24,7 +24,7 @@ import UpdateProposalForm from "./UpdateProposalForm"
 import  Conversations from "./Conversations";
 
 function App() {
-
+  const navigate = useNavigate();
     // const handleLogin = (userData) => {
   //   setUser(userData);
   // };
@@ -52,7 +52,7 @@ function App() {
               <Route path="/conversations" element={<Conversations />} />
               <Route exact path="/jobproposals" element={<Proposals  />} />    
               <Route exact path="/clients" element={<Clients  />} />
-              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm onClose={ navigate(`/updateproposal`);} />} />    
+              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm onClose={ navigate(`/updateproposal`)} />} />    
                     {/*element={<UpdateProposalForm />}  */}
             </Routes>
             
