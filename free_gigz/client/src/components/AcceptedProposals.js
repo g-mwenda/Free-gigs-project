@@ -4,7 +4,7 @@ import NavbarComponent from './NavbarComponent';
 const AcceptedProposals = ({ acceptedProposals }) => {
   return (
     <>
-      <NavbarComponent />
+      
       <div style={styles.container}>
         <h2 style={styles.heading}>Accepted Proposals</h2>
         {acceptedProposals && acceptedProposals.length > 0 ? (
