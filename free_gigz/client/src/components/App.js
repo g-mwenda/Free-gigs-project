@@ -52,7 +52,8 @@ function App() {
               <Route path="/conversations" element={<Conversations />} />
               <Route exact path="/jobproposals" element={<Proposals  />} />    
               <Route exact path="/clients" element={<Clients  />} />
-              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} />          
+              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm onClose={ navigate(`/updateproposal`);} />} />    
+                    {/*element={<UpdateProposalForm />}  */}
             </Routes>
             
           </div>

@@ -794,6 +794,25 @@
 // }
 
 // export default Proposals;
+
+// import React, { useState, useEffect, useContext } from 'react';
+// import NavbarComponent from './NavbarComponent';
+// import { AuthContext } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+// import proposals from "../styles/proposal.css";
+
+// function Proposals() {
+//   const [proposals, setProposals] = useState([]);
+//   const { current_user } = useContext(AuthContext);
+//   const [selectedProposalId, setSelectedProposalId] = useState(null);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     fetch(`/proposals`)
+//       .then((response) => response.json())
+//       .then((data) => setProposals(data))
+//       .catch((error) => console.error('Error fetching proposal listings:', error));
+//   }, []);
 import React, { useState, useEffect, useContext } from 'react';
 import NavbarComponent from './NavbarComponent';
 import { AuthContext } from "../context/AuthContext";
@@ -801,12 +820,13 @@ import { useNavigate } from "react-router-dom";
 import proposals from "../styles/proposal.css";
 
 function Proposals() {
-  const [proposals, setProposals] = useState([]);
+  const [proposalsList, setProposalsList] = useState([]); // Changed the name to avoid naming conflict
   const { current_user } = useContext(AuthContext);
   const [selectedProposalId, setSelectedProposalId] = useState(null);
+  const [proposals, setProposals] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
+    useEffect(() => {
     fetch(`/proposals`)
       .then((response) => response.json())
       .then((data) => setProposals(data))
@@ -830,11 +850,12 @@ function Proposals() {
     // You should have a proper route set up for UpdateProposalForm in your router configuration
     navigate(`/updateproposal/${proposalId}`);
   };
+  
 
   const handleDelete = (proposalId) => {
     console.log(`Deleting proposal ${proposalId}`);
     // Implement your logic for deleting a proposal
-    fetch(`/updateproposals/${proposalId}`, {
+    fetch(`/proposals/${proposalId}`, {
       method: 'DELETE',
     })
       .then((response) => {

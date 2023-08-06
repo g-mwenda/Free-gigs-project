@@ -42,7 +42,7 @@ class MessagesController < ApplicationController
     private
   
     def message_params
-      params.require(:message).permit(:conversation_id, :client_id_id, :freelancer_id, :content)
+      params.require(:message).permit(:conversation_id, :client_id, :freelancer_id, :content)
     end
   end
   
