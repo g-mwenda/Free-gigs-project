@@ -3,6 +3,7 @@ import "./jobListingForm.css"; // Import the CSS file
 import NavbarComponent from "./NavbarComponent";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import swal from "sweetalert2"; // Import SweetAlert
 
 export default function JobListingForm() {
   const [title, setTitle] = useState("");
@@ -17,7 +18,7 @@ export default function JobListingForm() {
     // Check if the user object is available and has the 'id' property
     if (current_user && current_user.role === 'client') {
       const newJobListing = {
-        client_id: current_user.id,
+        // client_id: current_user.id,
         title,
         description,
         budget,
@@ -33,12 +34,22 @@ export default function JobListingForm() {
       })
         .then((response) => response.json())
         .then((data) => {
-          // Handle successful submission, e.g., show a success message or redirect to another page
+          // Handle successful submission
+          setTitle("");
+          setDescription("");
+          setBudget("");
+          setDeadline("");
+
+          // Show success message using SweetAlert
+          swal("Success!", "Job listing posted successfully", "success");
           console.log("Job listing posted successfully:", data);
         })
         .catch((error) => {
-          // Handle error, e.g., show an error message to the user
+          // Handle error
           console.error("Error posting job listing:", error);
+
+          // Show error message using SweetAlert
+          swal("Error!", "Failed to post job listing", "error");
         });
     }
   }
@@ -68,6 +79,7 @@ export default function JobListingForm() {
               <div className="form-group">
                 <label htmlFor="description">Description:</label>
                 <textarea
+                type="text"
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -79,7 +91,7 @@ export default function JobListingForm() {
               <div className="form-group">
                 <label htmlFor="budget">Budget:</label>
                 <input
-                  type="text"
+                  type="number"
                   id="budget"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}

@@ -18,8 +18,13 @@ import Freelancers from "./freelancers";
 import UserProfile from "./UserProfile";
 import ProposalsForm from "./ProposalsForm";
 import FreelancerForm from "./FreelancerForm";
+import Proposals from "./Proposals";
+import Clients from "./Clients";
+import UpdateProposalForm from "./UpdateProposalForm"
+import  Conversations from "./Conversations";
 
 function App() {
+  
 
     // const handleLogin = (userData) => {
   //   setUser(userData);
@@ -44,8 +49,14 @@ function App() {
               <Route exact path="/freelancers" element={<Freelancers />} />
               <Route exact path="/me" element={<UserProfile />} />  
               <Route exact path="/proposals" element={<ProposalsForm  />} />
-              <Route exact path="/freelancerform" element={<FreelancerForm  />} />           
+              <Route exact path="/freelancerform" element={<FreelancerForm  />} />
+              <Route path="/conversations" element={<Conversations />} />
+              <Route exact path="/jobproposals" element={<Proposals  />} />    
+              <Route exact path="/clients" element={<Clients  />} />
+              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} />    
+                    {/*element={<UpdateProposalForm />}  */}
             </Routes>
+            
           </div>
           
         </SystemModeProvider>

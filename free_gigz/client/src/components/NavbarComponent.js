@@ -52,6 +52,17 @@ export default function NavbarComponent() {
                   Client registration form
                 </Link>
               </li>
+              {/* added link to proposals - Tom */}
+              <li className="nav-item">
+                <Link to="/jobproposals" className="nav-link">
+                  Proposals
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/conversations" className="nav-link">
+                  conversations
+                </Link>
+              </li>
             </>
           )}
           {current_user && current_user.role === "freelancer" && (
@@ -66,6 +77,23 @@ export default function NavbarComponent() {
               Freelancer Reg
             </Link>
           </li>
+
+              {/* added link to proposals - Tom */}
+              <li className="nav-item">
+                <Link to="/jobproposals" className="nav-link">
+                  Proposals
+                </Link>
+              </li>
+              <li className="nav-item">
+              <Link to="/clients" className="nav-link">
+                Clients
+              </Link>
+            </li>
+            <li className="nav-item">
+                <Link to="/conversations" className="nav-link">
+                  Conversations
+                </Link>
+              </li>
             </>
           )}
         </ul>
@@ -73,7 +101,7 @@ export default function NavbarComponent() {
       <div className="navbar bg-body-tertiary">
         <form className="container-fluid justify-content-start">
           {/* Conditionally render the buttons based on the current path */}
-          {current_user && location.pathname !== "/login" && location.pathname !== "/signup" ? (
+          {current_user && location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/" ? (
             <>
               <Link to="/" className="btn btn-success me-3">
                 Landing Page

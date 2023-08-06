@@ -101,7 +101,6 @@ import NavbarComponent from "./NavbarComponent";
 import JobListingItem from "./JobListingItem"; // Import the JobListingItem component
 import { AuthContext } from "../context/AuthContext";
 import joblistingcard from "../styles/joblistingcard.css";
-import joblistingbtn from "../styles/joblistingbtn.css";
 import { Link } from "react-router-dom";
 
 export default function JobListing() {

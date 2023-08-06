@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import proposalform from "../styles/proposalform.css"
 
 export default function ProposalsForm({ job }) {
   const [projectDetails, setProjectDetails] = useState("");
@@ -9,17 +10,15 @@ export default function ProposalsForm({ job }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (current_user && current_user.role === 'freelancer') {
+    if (current_user && current_user.role === "freelancer") {
       const proposal = {
         freelancer_id: current_user.id,
-        job_listing_id: job.id, // You need to provide the job_listing_id from the 'job' prop
-        // project_details:
-         projectDetails,
-        // cost_estimate: 
-        costEstimate,
-        // timeline: 
+        job_listing_id: job ? job.id : null, // Set job_listing_id to null if job prop is not provided
+        project_details: projectDetails, // Updated to use underscore instead of camelCase
+        cost_estimate: costEstimate, // Updated to use underscore instead of camelCase
         timeline,
       };
+    
 
       fetch("proposals", {
         method: "POST",
@@ -41,40 +40,49 @@ export default function ProposalsForm({ job }) {
   return (
     <div>
       {current_user && current_user.role === "freelancer" ? (
-        <div>
-          <h3>Submit Proposal for {job.title}</h3>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Project Details:</label>
-              <input
-                type="text"
-                value={projectDetails}
-                onChange={(e) => setProjectDetails(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label>Cost Estimate:</label>
-              <input
-                type="number"
-                value={costEstimate}
-                onChange={(e) => setCostEstimate(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label>Timeline:</label>
-              <input
-                type="number"
-                value={timeline}
-                onChange={(e) => setTimeline(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Submit Proposal</button>
-            <button type="button">Cancel</button>
-          </form>
-        </div>
+        <div class="form-box proposalcard">
+  <h4 class="form__title proposaltitle">Submit Proposal for {job && job.title}</h4>
+  <form class="form proposal-form" onSubmit={handleSubmit}>
+    <div class="form__container proposalfield">
+      <label class="form__label">Project Details:</label>
+      <input
+        type="text"
+        value={projectDetails}
+        onChange={(e) => setProjectDetails(e.target.value)}
+        required
+        placeholder="Project Details"
+        class="form__input proposalinput-field"
+      />
+    </div>
+    <div class="form__container proposalfield">
+      <label class="form__label">Cost Estimate:</label>
+      <input
+        type="number"
+        value={costEstimate}
+        onChange={(e) => setCostEstimate(e.target.value)}
+        required
+        placeholder="Cost Estimate"
+        class="form__input proposalinput-field"
+      />
+    </div>
+    <div class="form__container proposalfield">
+      <label class="form__label">Timeline:</label>
+      <input
+        type="date"
+        value={timeline}
+        onChange={(e) => setTimeline(e.target.value)}
+        required
+        placeholder="Timeline"
+        class="form__input proposalinput-field"
+      />
+    </div>
+    <button type="submit" class="form__button btn1">Submit Proposal</button>
+    <button type="button"  class="form__button btn1">Cancel</button>
+  </form>
+</div>
+
+
+
       ) : (
         <p>Not allowed to perform this operation</p>
       )}
