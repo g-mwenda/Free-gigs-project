@@ -6,8 +6,8 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const nav = useNavigate();
-  const [onChange, setonChange] = useState(false);
-  const [current_user, setCurrentUser] = useState();
+  const [current_user, setCurrentUser] = useState(null); // Set initial value to null
+  const [onChange, setOnChange] = useState(false);
 
   const login = (username, password) => {
     fetch("/login", {
@@ -24,15 +24,13 @@ export function AuthProvider({ children }) {
           // Show success message for successful login
           Swal.fire("Success", response.success, "success");
           nav("/home");
-          setonChange(!onChange);
-        } 
-        else {
+          setOnChange(!onChange);
+        } else {
           // If neither success nor error, show a generic error message
-          Swal.fire("Success", response.success, "success");
+          Swal.fire("Error", "Something went wrong", "error");
         }
       });
   };
-  
 
   const signup = (username, email, role, password) => {
     fetch("/signup", {
@@ -48,7 +46,7 @@ export function AuthProvider({ children }) {
         } else if (response.success) {
           nav("/login");
           Swal.fire("Success", response.success, "success");
-          setonChange(!onChange);
+          setOnChange(!onChange);
         } else {
           Swal.fire("Error", "Something went wrong", "error");
         }
@@ -62,9 +60,8 @@ export function AuthProvider({ children }) {
       .then((res) => res.json())
       .then((response) => {
         setCurrentUser(null);
-        setonChange(!onChange);
+        setOnChange(!onChange);
         nav("/login");
-        
       });
   };
 
@@ -88,11 +85,5 @@ export function AuthProvider({ children }) {
     current_user,
   };
 
-  return (
-    <div>
-      <AuthContext.Provider value={contextData}>
-        {children}
-      </AuthContext.Provider>
-    </div>
-  );
+  return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
 }
