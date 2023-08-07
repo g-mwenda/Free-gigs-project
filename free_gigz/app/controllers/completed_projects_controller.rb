@@ -20,7 +20,6 @@ class CompletedProjectsController < ApplicationController
      user = User.find_by(id: session[:user_id])
     freelancer = Freelancer.find_by(user_id: user.id)
     #  client = Client.find_by(user_id: user.id)
-
     all_params = completed_project_params.merge(freelancer: freelancer)
       
       
@@ -55,9 +54,9 @@ class CompletedProjectsController < ApplicationController
     def completed_project_params
       user = User.find_by(id: session[:user_id])
       freelancer = Freelancer.find_by(user_id: user.id)
-      puts(freelancer.id)
+     # puts(freelancer.id)
    #   client = Client.find_by(user_id: user.id)
-      params.require(:completed_project).permit( :job_listing_id, :project_status, :completed_date)
+      params.require(:completed_project).permit(:freelancer_id, :client_id, :job_listing_id, :project_status, :completed_date)
     end
   end
   

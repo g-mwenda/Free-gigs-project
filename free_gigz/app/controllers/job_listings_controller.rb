@@ -1,6 +1,6 @@
 class JobListingsController < ApplicationController
   # ...
-  skip_before_action :authorize, only: [:index, :create  ]
+  skip_before_action :authorize, only: [:index, :create, :show  ]
   def index
     joblistings = JobListing.includes(:client).all.as_json(include: { client: { only: :name } })
     render json: joblistings
