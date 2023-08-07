@@ -85,6 +85,18 @@
 class ProposalsController < ApplicationController
   skip_before_action :authorize, only: [:index, :create]
 
+  def accept
+    proposal = Proposal.find(params[:id])
+    proposal.update(accepted: true, rejected: false)
+    render json: { success: 'Proposal accepted successfully' }
+  end
+
+  def reject
+    proposal = Proposal.find(params[:id])
+    proposal.update(accepted: false, rejected: true)
+    render json: { success: 'Proposal rejected successfully' }
+  end
+
   def index
     proposals = Proposal.includes(:freelancer).all.as_json(include: { freelancer: { only: :name } })
     render json: proposals
@@ -111,6 +123,7 @@ class ProposalsController < ApplicationController
       render json: { error: proposal.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
+
 
   def update
     proposal = Proposal.find_by(id: params[:id])
