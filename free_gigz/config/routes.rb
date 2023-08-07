@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   delete "/logout", to:"sessions#destroy"
   get "/me", to:"users#current_user"
   post "/signup", to:"users#create"
+  post '/proposals/:id/accept', to: 'proposals#accept', as: :accept_proposal
+  post '/proposals/:id/reject', to: 'proposals#reject', as: :reject_proposal
+
   
   patch "/reset", to:"passwords#update_password"
 
