@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import proposalform from "../styles/proposalform.css"
 
 export default function ProposalsForm({ job }) {
   const [projectDetails, setProjectDetails] = useState("");
@@ -17,6 +18,7 @@ export default function ProposalsForm({ job }) {
         cost_estimate: costEstimate, // Updated to use underscore instead of camelCase
         timeline,
       };
+    
 
       fetch("proposals", {
         method: "POST",
@@ -38,46 +40,48 @@ export default function ProposalsForm({ job }) {
   return (
     <div>
       {current_user && current_user.role === "freelancer" ? (
-        <div class="proposalcard">
-  <h4 class="proposaltitle">Submit Proposal for {job && job.title}</h4>
-  <form onSubmit={handleSubmit}>
-    <div class="proposalfield">
-      <label>Project Details:</label>
+        <div class="form-box proposalcard">
+  <h4 class="form__title proposaltitle">Submit Proposal for {job && job.title}</h4>
+  <form class="form proposal-form" onSubmit={handleSubmit}>
+    <div class="form__container proposalfield">
+      <label class="form__label">Project Details:</label>
       <input
         type="text"
         value={projectDetails}
         onChange={(e) => setProjectDetails(e.target.value)}
         required
         placeholder="Project Details"
-        class="proposalinput-field"
+        class="form__input proposalinput-field"
       />
     </div>
-    <div class="proposalfield">
-      <label>Cost Estimate:</label>
+    <div class="form__container proposalfield">
+      <label class="form__label">Cost Estimate:</label>
       <input
         type="number"
         value={costEstimate}
         onChange={(e) => setCostEstimate(e.target.value)}
         required
         placeholder="Cost Estimate"
-        class="proposalinput-field"
+        class="form__input proposalinput-field"
       />
     </div>
-    <div class="proposalfield">
-      <label>Timeline:</label>
+    <div class="form__container proposalfield">
+      <label class="form__label">Timeline:</label>
       <input
         type="date"
         value={timeline}
         onChange={(e) => setTimeline(e.target.value)}
         required
         placeholder="Timeline"
-        class="proposalinput-field"
+        class="form__input proposalinput-field"
       />
     </div>
-    <button type="submit">Submit Proposal</button>
-    <button type="button">Cancel</button>
+    <button type="submit" class="form__button btn1">Submit Proposal</button>
+    <button type="button"  class="form__button btn1">Cancel</button>
   </form>
 </div>
+
+
 
       ) : (
         <p>Not allowed to perform this operation</p>

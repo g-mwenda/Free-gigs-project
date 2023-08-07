@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { json, useNavigate } from "react-router-dom";
 import { useNavigate } from "react-router"
 import NavbarComponent from "./NavbarComponent";
+import Footer from "./Footer";
 
 
 export default function SignUpForm({ onLogin, setIsSignUp }) {
@@ -11,11 +12,9 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  
-
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, email, password, role)
+    console.log(username, email, password, role);
     fetch("/signup", {
       method: "POST",
       headers: {
@@ -27,12 +26,13 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         role,
         password,
       }),
-    }).then((response) => response.json())
+    })
+      .then((response) => response.json())
       .then((response) => {
-        console.log(response.success)
+        console.log(response.success);
         if (response.success) {
           return response.success;
-          navigate("/login")
+          navigate("/login");
         } else {
           throw new Error("Signup failed");
         }
@@ -41,7 +41,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
         onLogin(user);
       })
       .catch((error) => {
-        console.error("Signup Error:", error);
+        navigate("/login");
         // Handle error, e.g., show an error message to the user
       });
   }
@@ -122,6 +122,7 @@ export default function SignUpForm({ onLogin, setIsSignUp }) {
 //   );
 // }
 return (
+    <div>
   <div>
     <NavbarComponent/>
   <div style={{ display: "flex" }}>
@@ -203,6 +204,8 @@ return (
       </div>
     </form>
   </div>
+  </div>
+      <Footer/>
   </div>
 );
 }

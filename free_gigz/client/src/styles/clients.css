@@ -1,0 +1,99 @@
+.Clients-container {
+  padding: 2rem;
+}
+
+.Clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-gap: 1rem;
+}
+
+.client-item {
+  width: 290px;
+  height: 400px;
+  border-radius: 20px;
+  background: #f5f5f5;
+  position: relative;
+  padding: 1.8rem;
+  border: 2px solid #c3c6ce;
+  transition: 0.5s ease-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* To center content horizontally */
+  justify-content: center; /* To center content vertically */
+  overflow: hidden; /* To hide any content that may overflow the circle */
+}
+
+.client-item:hover {
+  border-color: #008bf8;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card-details {
+  color: black;
+  gap: 0.5em;
+  text-align: center; /* To center text content */
+}
+
+.client-profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* To make the shape circular */
+  background-size: cover;
+  background-position: center;
+}
+.chatBtn {
+     width: 55px;
+     height: 55px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     bottom: 10px; 
+     left: 10px;
+     opacity: 0;
+     border-radius: 50%;
+     border: none;
+     background-color: rgb(95, 192, 244);
+     background-image: linear-gradient(rgb(60, 202, 238) );
+     cursor: pointer;
+     padding-top: 3px;
+     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.164);
+     position: relative;
+     background-size: 300%;
+     background-position: left;
+     transition-duration: 1s;
+   }
+   
+   .tooltip {
+     position: absolute;
+     top: -40px;
+     opacity: 0;
+     background-color: rgb(255, 180, 82);
+     color: white;
+     padding: 5px 10px;
+     border-radius: 5px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition-duration: .5s;
+     pointer-events: none;
+     letter-spacing: 0.5px;
+   }
+   
+   .chatBtn:hover .tooltip {
+     opacity: 1;
+     transition-duration: .5s;
+   }
+   
+   .chatBtn:hover {
+     background-position: right;
+     transition-duration: 1s;
+   }
+   .chatBtn:active {
+     opacity: 0.2;
+   }
+   
+   .client-item:hover .chatBtn {
+     opacity: 1;
+   }

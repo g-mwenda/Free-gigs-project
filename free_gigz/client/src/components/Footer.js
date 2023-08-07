@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTiktok, faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 const footerStyle = {
-  background: "#f0f0f0",
-  padding: "20px",
+  background: "linear-gradient(to right, #F0F0F0, #D2B48C, #F0F0F0)",
+    padding: "20px",
   textAlign: "center",
 };
 

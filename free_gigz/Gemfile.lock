@@ -185,6 +185,11 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
+<<<<<<< HEAD
+=======
+  ruby
+  x86_64-darwin-20
+>>>>>>> a40f0269260182a3c9c923afe43f7dc6159fa28a
   x86_64-linux
 
 DEPENDENCIES

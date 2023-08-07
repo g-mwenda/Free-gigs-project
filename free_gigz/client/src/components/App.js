@@ -19,8 +19,14 @@ import UserProfile from "./UserProfile";
 import ProposalsForm from "./ProposalsForm";
 import FreelancerForm from "./FreelancerForm";
 import Proposals from "./Proposals";
+import Clients from "./Clients";
+import UpdateProposalForm from "./UpdateProposalForm"
+import  Conversations from "./Conversations";
+import AcceptedProposals from "./AcceptedProposals";
+import RejectedProposals from "./RejectedProposals";
 
 function App() {
+  
 
     // const handleLogin = (userData) => {
   //   setUser(userData);
@@ -30,7 +36,7 @@ function App() {
       <AuthProvider>
         <SystemModeProvider>
           <div className="App">
-            <Routes>
+                        <Routes>
               <Route exact path="/" element={<LandingPage />} />
               <Route exact path="/login" element={<Login/>} />
               <Route path="/home" element={<Home  />} /> 
@@ -46,8 +52,15 @@ function App() {
               <Route exact path="/me" element={<UserProfile />} />  
               <Route exact path="/proposals" element={<ProposalsForm  />} />
               <Route exact path="/freelancerform" element={<FreelancerForm  />} />
-              <Route exact path="/jobproposals" element={<Proposals  />} />           
+              <Route path="/conversations" element={<Conversations />} />
+              <Route exact path="/jobproposals" element={<Proposals  />} />    
+              <Route exact path="/clients" element={<Clients  />} />
+              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} /> 
+              <Route exact path="/acceptedproposals" element={<AcceptedProposals />} /> 
+              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />   
+                    {/*element={<UpdateProposalForm />}  */}
             </Routes>
+            
           </div>
           
         </SystemModeProvider>
