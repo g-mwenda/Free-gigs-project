@@ -26,8 +26,7 @@ import AcceptedProposals from "./AcceptedProposals";
 import RejectedProposals from "./RejectedProposals";
 
 function App() {
-  
-
+  const navigate = useNavigate();
     // const handleLogin = (userData) => {
   //   setUser(userData);
   // };
@@ -55,9 +54,7 @@ function App() {
               <Route path="/conversations" element={<Conversations />} />
               <Route exact path="/jobproposals" element={<Proposals  />} />    
               <Route exact path="/clients" element={<Clients  />} />
-              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} /> 
-              <Route exact path="/acceptedproposals" element={<AcceptedProposals />} /> 
-              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />   
+              <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm onClose={ navigate(`/updateproposal`)} />} />    
                     {/*element={<UpdateProposalForm />}  */}
             </Routes>
             
