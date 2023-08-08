@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
           setOnChange(!onChange);
         } else {
           // If neither success nor error, show a generic error message
-          Swal.fire("Error", "Something went wrong", "error");
+          Swal.fire("Success", response.success, "success");
         }
       });
   };

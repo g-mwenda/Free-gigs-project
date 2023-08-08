@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+// import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
@@ -24,12 +24,14 @@ import UpdateProposalForm from "./UpdateProposalForm"
 import  Conversations from "./Conversations";
 import AcceptedProposals from "./AcceptedProposals";
 import RejectedProposals from "./RejectedProposals";
+import ConversationsIndex from "./ConversationsIndex";
+import MessageList from "./MessageList";
 
 
 function App() {
   
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
     // const handleLogin = (userData) => {
   //   setUser(userData);
   // };
@@ -59,7 +61,10 @@ function App() {
               <Route exact path="/clients" element={<Clients  />} />
               <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} /> 
               <Route exact path="/acceptedproposals" element={<AcceptedProposals />} /> 
-              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />   
+              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />  
+              <Route exact path="/messages" element={<MessageList />} />
+              <Route path="/chat" element={<ConversationsIndex />} />
+
                     {/*element={<UpdateProposalForm />}  */}
             </Routes>
             

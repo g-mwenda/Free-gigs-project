@@ -1,98 +1,323 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import NavbarComponent from "./NavbarComponent";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBTypography,
-  MDBTextArea,
-  MDBBtn,
-} from "mdb-react-ui-kit";
 
-const Conversations = () => {
+// import React, { useEffect, useState } from "react";
+// import { BsPencilSquare } from "react-icons/bs";
+
+// export default function ConversationList({
+//   currentConversation,
+//   onSelectConversation,
+//   onCreateConversation,
+//   onSearch,
+// }) {
+//   const [conversations, setConversations] = useState([]);
+//   const [allUsers, setAllUsers] = useState([]);
+//   const [selectedUser, setSelectedUser] = useState("");
+
+//   useEffect(() => {
+//     // Fetch conversations data here
+//     fetch("/conversations")
+//       .then((response) => response.json())
+//       .then((data) => setConversations(data))
+//       .catch((error) => console.error("Error fetching conversations:", error));
+
+//     // Fetch users from the clients table
+//     fetch("/clients")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         const clientUsers = data.map((client) => ({
+//           id: client.id,
+//           username: client.company_name,
+//         }));
+//         setAllUsers((prevUsers) => [...prevUsers, ...clientUsers]);
+//       })
+//       .catch((error) => console.error("Error fetching clients:", error));
+
+//     // Fetch users from the freelancers table
+//     fetch("/freelancers")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         const freelancerUsers = data.map((freelancer) => ({
+//           id: freelancer.id,
+//           username: freelancer.name,
+//         }));
+//         setAllUsers((prevUsers) => [...prevUsers, ...freelancerUsers]);
+//       })
+//       .catch((error) => console.error("Error fetching freelancers:", error));
+//   }, []);
+
+//   const conversationElements = conversations.map((conversation) => (
+//     <div
+//       key={conversation.id}
+//       className={`conversation ${
+//         conversation.id === currentConversation.id ? "active" : ""
+//       }`}
+//       onClick={() => onSelectConversation(conversation)}
+//     >
+//       <p>{conversation.freelancer_id}</p>
+//     </div>
+//   ));
+
+//   const userOptions = allUsers.map((user) => (
+//     <option key={user.id} value={user.username}>
+//       {user.username}
+//     </option>
+//   ));
+
+//   return (
+//     <div className="conversation-list">
+//       <div className="new-conversation">
+//         <div className="toggle-new-conversation">
+//           <p>New Conversation</p>
+//           <BsPencilSquare size={25} />
+//         </div>
+//         <div className="new-conversation-dropdown">
+//           {/* Dropdown content */}
+//           <select
+//             value={selectedUser}
+//             onChange={(e) => setSelectedUser(e.target.value)}
+//           >
+//             <option value="">Select a User</option>
+//             {userOptions}
+//           </select>
+//           <button onClick={() => onCreateConversation(selectedUser)}>Create</button>
+//         </div>
+//       </div>
+//       <div className="search">
+//         <input
+//           type="text"
+//           placeholder="Search..."
+//           onChange={(e) => onSearch(e.target.value)}
+//         />
+//       </div>
+//       <div className="conversations">{conversationElements}</div>
+//     </div>
+//   );
+// }
+
+// import React, { useEffect, useState } from "react";
+// import { BsPencilSquare } from "react-icons/bs";
+
+// export default function ConversationList({
+//   currentConversation,
+//   onSelectConversation,
+//   onCreateConversation,
+//   onSearch,
+// }) {
+//   const [conversations, setConversations] = useState([]);
+//   const [allUsers, setAllUsers] = useState([]);
+//   const [selectedUser, setSelectedUser] = useState("");
+
+//   useEffect(() => {
+//     // Fetch conversations data here
+//     fetch("/conversations")
+//       .then((response) => response.json())
+//       .then((data) => setConversations(data))
+//       .catch((error) => console.error("Error fetching conversations:", error));
+
+//     // Fetch users from the clients table
+//     fetch("/clients")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         const clientUsers = data.map((client) => ({
+//           id: client.id,
+//           username: client.company_name,
+//         }));
+//         setAllUsers((prevUsers) => [...prevUsers, ...clientUsers]);
+//       })
+//       .catch((error) => console.error("Error fetching clients:", error));
+
+//     // Fetch users from the freelancers table
+//     fetch("/freelancers")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         const freelancerUsers = data.map((freelancer) => ({
+//           id: freelancer.id,
+//           username: freelancer.name,
+//         }));
+//         setAllUsers((prevUsers) => [...prevUsers, ...freelancerUsers]);
+//       })
+//       .catch((error) => console.error("Error fetching freelancers:", error));
+//   }, []);
+
+//   const conversationElements = conversations.map((conversation) => (
+//     <div
+//       key={conversation.id}
+//       className={`conversation ${
+//         conversation.id === currentConversation.id ? "active" : ""
+//       }`}
+//       onClick={() => onSelectConversation(conversation)}
+//     >
+//       <p>{conversation.freelancer_id}</p>
+//     </div>
+//   ));
+
+//   const userOptions = allUsers.map((user) => (
+//     <option key={user.id} value={user.username}>
+//       {user.username}
+//     </option>
+//   ));
+
+//   const handleCreateConversation = () => {
+//     // Implement your logic for creating a new conversation here
+//     // Use the selectedUser state value to create the conversation
+//     // You can call the onCreateConversation function with the selectedUser value
+//     onCreateConversation(selectedUser);
+//   };
+
+//   return (
+//     <div className="conversation-list">
+//       <div className="new-conversation">
+//         <div className="toggle-new-conversation">
+//           <p>New Conversation</p>
+//           <BsPencilSquare size={25} />
+//         </div>
+//         <div className="new-conversation-dropdown">
+//           {/* Dropdown content */}
+//           <select
+//             value={selectedUser}
+//             onChange={(e) => setSelectedUser(e.target.value)}
+//           >
+//             <option value="">Select a User</option>
+//             {userOptions}
+//           </select>
+//           <button onClick={handleCreateConversation}>Create</button>
+//         </div>
+//       </div>
+//       <div className="search">
+//         <input
+//           type="text"
+//           placeholder="Search..."
+//           onChange={(e) => onSearch(e.target.value)}
+//         />
+//       </div>
+//       <div className="conversations">{conversationElements}</div>
+//     </div>
+//   );
+// }
+
+import React, { useEffect, useState } from "react";
+import { BsPencilSquare } from "react-icons/bs";
+
+export default function ConversationList({
+  currentConversation,
+  onSelectConversation,
+  onCreateConversation,
+  onSearch,
+}) {
   const [conversations, setConversations] = useState([]);
-  const { clientId } = useParams(); // Get the client ID from URL parameters
-  const [selectedConversation, setSelectedConversation] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [newConversationData, setNewConversationData] = useState({
+    freelancer_id: 0,
+    client_id: 0,
+  });
 
-  // Simulate conversations data fetching (replace with actual API call)
   useEffect(() => {
-    // Fetch conversations data based on the client ID
-    // For example:
-    const fetchConversations = async () => {
-      try {
-        const response = await fetch(`/api/conversations?clientId=${clientId}`);
-        const data = await response.json();
-        setConversations(data);
-      } catch (error) {
-        console.error("Error fetching conversations:", error);
-      }
+    // Fetch conversations data here
+    fetch("/conversations")
+      .then((response) => response.json())
+      .then((data) => setConversations(data))
+      .catch((error) => console.error("Error fetching conversations:", error));
+
+    // Fetch users from the clients table
+    fetch("/clients")
+      .then((response) => response.json())
+      .then((data) => {
+        const clientUsers = data.map((client) => ({
+          id: client.id,
+          username: client.company_name,
+        }));
+        setAllUsers((prevUsers) => [...prevUsers, ...clientUsers]);
+      })
+      .catch((error) => console.error("Error fetching clients:", error));
+
+    // Fetch users from the freelancers table
+    fetch("/freelancers")
+      .then((response) => response.json())
+      .then((data) => {
+        const freelancerUsers = data.map((freelancer) => ({
+          id: freelancer.id,
+          username: freelancer.name,
+        }));
+        setAllUsers((prevUsers) => [...prevUsers, ...freelancerUsers]);
+      })
+      .catch((error) => console.error("Error fetching freelancers:", error));
+  }, []);
+
+  const conversationElements = conversations.map((conversation) => (
+    <div
+      key={conversation.id}
+      className={`conversation ${
+        conversation.id === currentConversation.id ? "active" : ""
+      }`}
+      onClick={() => onSelectConversation(conversation)}
+    >
+      <p>{conversation.freelancer_id}</p>
+    </div>
+  ));
+
+  const userOptions = allUsers.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.username}
+    </option>
+  ));
+
+  const handleCreateConversation = () => {
+    // Form validation and data processing
+    const { freelancer_id, client_id } = newConversationData;
+    if (!freelancer_id || !client_id) {
+      // Handle form validation error
+      return;
+    }
+
+    // Create a new conversation
+    const newConversation = {
+      id: conversations.length + 1,
+      freelancer_id,
+      client_id,
+      // ... other conversation data
     };
 
-    fetchConversations();
-  }, [clientId]);
-
-  // Function to handle conversation selection
-  const handleConversationSelect = (conversation) => {
-    setSelectedConversation(conversation);
+    // Update state with the new conversation
+    setConversations([...conversations, newConversation]);
+    setSelectedUser("");
+    setNewConversationData({ freelancer_id: 0, client_id: 0 });
   };
 
   return (
-    <>
-      <NavbarComponent />
-      <MDBContainer fluid className="py-5" style={{ backgroundColor: "#eee" }}>
-        <MDBRow>
-          {/* Left section for conversations */}
-          <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0">
-            <h5 className="font-weight-bold mb-3 text-center text-lg-start">
-              Member
-            </h5>
-            {selectedConversation ? (
-              // Render the selected client/freelancer's profile
-              <MDBCard>
-                <MDBCardBody>
-                  <img
-                    src={selectedConversation.avatar}
-                    alt="avatar"
-                    className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
-                    width="100"
-                  />
-                  <h5>{selectedConversation.name}</h5>
-                  {/* Add more profile details if needed */}
-                </MDBCardBody>
-              </MDBCard>
-            ) : (
-              <MDBCard>
-                <MDBCardBody>
-                  <p>No conversations yet.</p>
-                </MDBCardBody>
-              </MDBCard>
-            )}
-          </MDBCol>
-
-          {/* Right section for messages */}
-          <MDBCol md="6" lg="7" xl="8">
-            <MDBTypography listUnStyled>
-              {selectedConversation ? (
-                // Render messages for the selected conversation
-                <p>Selected conversation messages will be shown here.</p>
-              ) : (
-                <p>Select a conversation to view messages.</p>
-              )}
-            </MDBTypography>
-            <li className="bg-white mb-3">
-              <MDBTextArea label="Message" id="textAreaExample" rows={4} />
-            </li>
-            <MDBBtn color="info" rounded className="float-end">
-              Send
-            </MDBBtn>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </>
+    <div className="conversation-list">
+      <div className="new-conversation">
+        <div className="toggle-new-conversation">
+          <p>New Conversation</p>
+          <BsPencilSquare size={25} />
+        </div>
+        <div className="new-conversation-dropdown">
+          {/* Dropdown content */}
+          <select
+            value={selectedUser}
+            onChange={(e) => {
+              setSelectedUser(e.target.value);
+              setNewConversationData({
+                ...newConversationData,
+                [e.target.name]: parseInt(e.target.value),
+              });
+            }}
+            name="client_id"
+          >
+            <option value="">Select a User</option>
+            {userOptions}
+          </select>
+          <button onClick={handleCreateConversation}>Create</button>
+        </div>
+      </div>
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={(e) => onSearch(e.target.value)}
+        />
+      </div>
+      <div className="conversations">{conversationElements}</div>
+    </div>
   );
-};
+}
 
-export default Conversations;
