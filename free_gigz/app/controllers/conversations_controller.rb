@@ -45,6 +45,6 @@ class ConversationsController < ApplicationController
   private
 
   def conversation_params
-    params.require(:conversation).permit(:freelancer_id, :client_id, :last_message_id, :last_message_sender)
+    params.require(:conversations).permit(:freelancer_id, :client_id, :last_message_id, :last_message_sender)
   end
 end

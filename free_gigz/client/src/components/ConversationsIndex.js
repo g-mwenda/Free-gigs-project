@@ -83,6 +83,7 @@
 import React, { useEffect, useState } from "react";
 import MessageList from "./MessageList";
 import ConversationList from "./Conversations";
+import NavbarComponent from "./NavbarComponent";
 
 export default function ConversationsIndex() {
   const [conversations, setConversations] = useState([]);
@@ -124,6 +125,8 @@ export default function ConversationsIndex() {
   };
 
   return (
+    <div>
+        <NavbarComponent/>
     <div className="conversations-index">
       <div className="container">
         <div className="row">
@@ -154,6 +157,7 @@ export default function ConversationsIndex() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
