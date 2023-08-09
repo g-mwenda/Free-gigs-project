@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mpesas
   post "/login", to:"sessions#create"
   delete "/logout", to:"sessions#destroy"
   get "/me", to:"users#current_user"
@@ -43,6 +44,10 @@ Rails.application.routes.draw do
   # PATCH  /users/:id(.:format)      users#update
   # PUT    /users/:id(.:format)      users#update
   # DELETE /users/:id(.:format)      users#destroy
+
+  # mpesa route -Tom
+  post 'stkpush', to: 'mpesas#stkpush'
+  post 'stkquery', to: 'mpesas#stkquery'
 
 
 
