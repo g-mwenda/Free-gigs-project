@@ -201,20 +201,241 @@
 //   );
 // }
 
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import ConversationList from "./ConversationList";
+// import MessageList from "./MessageList";
+
+// export default function ConversationIndex() {
+//   const [selectedConversation, setSelectedConversation] = useState(null);
+
+//   return (
+//     <div>
+//       <h1>My Conversations</h1>
+//       <ConversationList onSelectConversation={setSelectedConversation} />
+//       {selectedConversation && <MessageList conversation={selectedConversation} />}
+//     </div>
+//   );
+// }
+
+// import React, { useEffect, useState, useContext } from "react";
+// import { AuthContext } from "../context/AuthContext";
+// import toast, { Toaster } from "react-hot-toast";
+// import ConversationList from "./ConversationList";
+// import MessageList from "./MessageList";
+
+// export default function ConversationsIndex() {
+//   const [conversations, setConversations] = useState([]);
+//   const [currentConversation, setCurrentConversation] = useState({});
+//   const [currentMessage, setCurrentMessage] = useState("");
+//   const [currentMessages, setCurrentMessages] = useState([]);
+//   const [conversationSearch, setConversationSearch] = useState("");
+//   const [fetchMethod, setFetchMethod] = useState("POST");
+
+//   const { user } = useContext(AuthContext); // Access 'user' from AuthContext
+
+//   const failureNotify = () =>
+//     toast.error("Message Not Sent! Please include a message before sending.");
+
+//   useEffect(() => {
+//     fetch("/conversations").then((r) => {
+//       if (r.ok) {
+//         r.json().then((conversations) => {
+//         setConversations(conversations);
+//         setCurrentMessages(conversations.messages);
+//       });
+//     }
+//   }, []);
+
+//   // Define the missing functions here
+//   const filteredConversations = conversations.filter((conversation) =>
+//     conversation.users.join(",").includes(conversationSearch)
+//   );
+
+//   const handleConversationSearch = (search) => {
+//     setConversationSearch(search);
+//   };
+
+//   const handleSelectConversation = (conversation) => {
+//     setCurrentConversation(conversation);
+//     setCurrentMessages(conversation.messages);
+//   };
+
+//   const handleCreateConversation = (newUsername) => {
+//     // Your implementation here
+//   };
+
+//   const handleSubmitMessage = (message) => {
+//     // Your implementation here
+//   };
+
+//   const handleEditMessage = (editedMessage) => {
+//     setCurrentMessage(editedMessage);
+//   };
+
+//   return (
+//     <>
+//       <h1 className="page-header">Your Conversations</h1>
+//       <Toaster />
+//       <div className="container-fluid">
+//         <div
+//           id="conversation-page-parent-div"
+//           className="row my-4 justify-content-center h-100"
+//         >
+//           <ConversationList
+//             currentConversation={currentConversation}
+//             conversations={filteredConversations}
+//             onSearch={handleConversationSearch}
+//             onSelect={handleSelectConversation}
+//             onCreate={handleCreateConversation}
+//           />
+//           <MessageList
+//             conversation={currentConversation}
+//             messages={currentMessages}
+//             currentMessage={currentMessage}
+//             onSubmit={handleSubmitMessage}
+//             onEdit={handleEditMessage}
+//           />
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
 import ConversationList from "./ConversationList";
 import MessageList from "./MessageList";
 
-export default function ConversationIndex() {
-  const [selectedConversation, setSelectedConversation] = useState(null);
+export default function ConversationsIndex() {
+  const [conversations, setConversations] = useState([]);
+  const [currentConversation, setCurrentConversation] = useState({});
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [currentMessages, setCurrentMessages] = useState([]);
+  const [conversationSearch, setConversationSearch] = useState("");
+
+  const { user, users } = useContext(AuthContext); // Access 'user' from AuthContext
+
+  const failureNotify = () =>
+    toast.error("Message Not Sent! Please include a message before sending.");
+
+  useEffect(() => {
+    fetch("/conversations")
+      .then((r) => {
+        if (r.ok) {
+          return r.json();
+        }
+        throw new Error("Network response was not ok");
+      })
+      .then((conversations) => {
+        setConversations(conversations);
+        setCurrentMessages(conversations.messages);
+      })
+      .catch((error) => {
+        console.error("Error fetching conversations:", error);
+      });
+  }, []);
+
+  const filteredConversations = conversations.filter((conversation) =>
+    conversation.users.join(",").includes(conversationSearch)
+  );
+
+  const handleConversationSearch = (search) => {
+    setConversationSearch(search);
+  };
+
+  const handleSelectConversation = (conversation) => {
+    setCurrentConversation(conversation);
+    setCurrentMessages(conversation.messages);
+  };
+
+  const handleCreateConversation = (newUsername) => {
+    const users = [user, newUsername];
+    const existingConversation = conversations.find(
+      (conversation) =>
+        conversation.users.sort().join(",") === users.sort().join(",")
+    );
+
+    if (existingConversation) {
+      handleSelectConversation(existingConversation);
+    } else {
+      fetch("/conversations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          users,
+        }),
+      })
+        .then((response) => response.json())
+        .then((newConversation) => {
+          setCurrentConversation(newConversation);
+          setConversations([...conversations, newConversation]);
+          setCurrentMessage("");
+          setCurrentMessages([]);
+        })
+        .catch((error) => {
+          console.error("Error creating conversation:", error);
+        });
+    }
+  };
+
+  const handleSubmitMessage = (message) => {
+    if (!message.trim()) {
+      failureNotify();
+      return;
+    }
+
+    fetch("/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        body: message,
+        sender: user.username,
+        conversation_id: currentConversation.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((newMessage) => {
+        setCurrentMessages([...currentMessages, newMessage]);
+        setCurrentMessage("");
+      })
+      .catch((error) => {
+        console.error("Error submitting message:", error);
+      });
+  };
+
+  const handleEditMessage = (editedMessage) => {
+    setCurrentMessage(editedMessage);
+  };
 
   return (
-    <div>
-      <h1>My Conversations</h1>
-      <ConversationList onSelectConversation={setSelectedConversation} />
-      {selectedConversation && <MessageList conversation={selectedConversation} />}
-    </div>
+    <>
+      <h1 className="page-header">Your Conversations</h1>
+      <Toaster />
+      <div className="container-fluid">
+        <div
+          id="conversation-page-parent-div"
+          className="row my-4 justify-content-center h-100"
+        >
+          <ConversationList
+            currentConversation={currentConversation}
+            conversations={filteredConversations}
+            onSearch={handleConversationSearch}
+            onSelect={handleSelectConversation}
+            onCreate={handleCreateConversation}
+          />
+          <MessageList
+            conversation={currentConversation}
+            messages={currentMessages}
+            currentMessage={currentMessage}
+            onSubmit={handleSubmitMessage}
+            onEdit={handleEditMessage}
+          />
+        </div>
+      </div>
+    </>
   );
 }
-
-

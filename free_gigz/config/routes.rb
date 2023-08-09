@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :messages
+  resources :conversations
   resources :mpesas
   post "/login", to:"sessions#create"
   delete "/logout", to:"sessions#destroy"
@@ -10,8 +12,6 @@ Rails.application.routes.draw do
   
   patch "/reset", to:"passwords#update_password"
 
-  resources :messages
-  resources :conversations
   resources :review_ratings 
   resources :completed_projects
   resources :proposals

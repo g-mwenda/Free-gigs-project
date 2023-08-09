@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
   const nav = useNavigate();
   const [current_user, setCurrentUser] = useState(null); // Set initial value to null
   const [onChange, setOnChange] = useState(false);
+  const [users, setUsers] = useState([]);
 
   const login = (username, password) => {
     fetch("/login", {
@@ -77,6 +78,20 @@ export function AuthProvider({ children }) {
         }
       });
   }, [onChange]);
+
+
+useEffect(() => {
+  fetch("/users", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data) {
+        setUsers(data);
+      }
+    });
+}, [onChange]);
 
   const contextData = {
     login,
