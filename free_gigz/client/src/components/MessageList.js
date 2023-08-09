@@ -1,169 +1,85 @@
-// import React, { useEffect, useRef } from "react";
-// import moment from "moment";
-
-// export default function MessageList({
-//   conversation,
-//   messages,
-//   currentMessage,
-//   onEdit,
-//   onSubmit,
-//   onDelete,
-// }) {
-//   const lastMessageRef = useRef();
-
-//   useEffect(() => {
-//     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-//   }, [messages]);
-
-//   const messageElements = messages.map((message) => (
-//     <div
-//       key={message.id}
-//       className={`message-container ${
-//         message.sender === conversation.freelancer_id ? "sender" : "receiver"
-//       }`}
-//     >
-//       <div className="message-content">
-//         <p>{message.content}</p>
-//         <span className="message-time">
-//           {moment(message.updated_at).format("M/D/YY h:mm a")}
-//         </span>
-//       </div>
-//     </div>
-//   ));
-
-//   return (
-//     <div className="message-list">
-//       {messageElements}
-//       <div ref={lastMessageRef} />
-//       <div className="message-input">
-//         <textarea
-//           value={currentMessage}
-//           onChange={(e) => onEdit(e.target.value)}
-//           placeholder="Type your message..."
-//         />
-//         <button onClick={onSubmit}>Send</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-// import React, { useEffect, useRef } from "react";
-// import moment from "moment";
-
-// export default function MessageList({
-//   conversation,
-//   messages,
-//   currentMessage,
-//   onEdit,
-//   onSubmit,
-// }) {
-//   const lastMessageRef = useRef();
-
-//   useEffect(() => {
-//     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-//   }, [messages]);
-
-//   const messageElements = messages.map((message) => {
-//     const isSender = message.sender === conversation.freelancer_id;
-    
-//     return (
-//       <div
-//         key={message.id}
-//         className={`message-container ${
-//           isSender ? "sender" : "receiver"
-//         }`}
-//       >
-//         <div className={`message-content ${isSender ? "sender" : "receiver"}`}>
-//           {!isSender && (
-//             <p className="fw-bold">{message.sender}</p>
-//           )}
-//           <p>{message.content}</p>
-//           <span className="message-time">
-//             {moment(message.updated_at).format("M/D/YY h:mm a")}
-//           </span>
-//         </div>
-//       </div>
-//     );
-//   });
-
-//   return (
-//     <div className="message-list">
-//       {messageElements}
-//       <div ref={lastMessageRef} />
-//       <div className="message-input">
-//         <textarea
-//           value={currentMessage}
-//           onChange={(e) => onEdit(e.target.value)}
-//           placeholder="Type your message..."
-//         />
-//         <button onClick={() => onSubmit(currentMessage)}>Send</button>
-//       </div>
-//     </div>
-//   );
-// }
-
 import React, { useState, useEffect, useRef } from "react";
-import moment from "moment";
+// import moment from "moment";
 
-export default function MessageList({
-  conversation,
-  messages,
-  currentMessage,
-  onEdit,
-  onSubmit,
-}) {
-  const [messageInput, setMessageInput] = useState("");
 
-  const lastMessageRef = useRef();
+export default function MessageList({ conversation }) {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+
+  const messageInputRef = useRef();
 
   useEffect(() => {
-    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    // Fetch messages for the selected conversation from the server
+    fetch(`/conversations/${conversation.id}/messages`)
+      .then((response) => response.json())
+      .then((data) => setMessages(data))
+      .catch((error) => console.error("Error fetching messages:", error));
+  }, [conversation]);
 
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (messageInput.trim() === "") return;
-    
-    onSubmit(messageInput);
-    setMessageInput("");
+  useEffect(() => {
+    messageInputRef.current.focus();
+  }, []);
+
+  const handleSendMessage = () => {
+    if (newMessage.trim() === "") return;
+
+    // Send newMessage to the server
+    fetch(`/conversations/${conversation.id}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content: newMessage }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages([...messages, data]);
+        setNewMessage("");
+      })
+      .catch((error) => console.error("Error sending message:", error));
   };
 
-  const messageElements = messages.map((message) => {
-    const isSender = message.sender === conversation.freelancer_id;
-
-    return (
-      <div
-        key={message.id}
-        className={`message-container ${
-          isSender ? "sender" : "receiver"
-        }`}
-      >
-        <div className={`message-content ${isSender ? "sender" : "receiver"}`}>
-          {!isSender && <p className="fw-bold">{message.sender}</p>}
-          <p>{message.content}</p>
-          <span className="message-time">
-            {moment(message.updated_at).format("M/D/YY h:mm a")}
-          </span>
-        </div>
-      </div>
-    );
-  });
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
 
   return (
-    <div className="message-list">
-      {messageElements}
-      <div ref={lastMessageRef} />
-      <div className="message-input">
-        <form onSubmit={handleSendMessage}>
-          <textarea
-            value={messageInput}
-            onChange={(e) => setMessageInput(e.target.value)}
-            placeholder="Type your message..."
-          />
-          <button type="submit">Send</button>
-        </form>
+    <div>
+      {/* <h2>Conversation with User {conversation.user_id}</h2> */}
+      <div>
+        {messages.map((message) => (
+          <div key={message.id}>
+            <p>{message.content}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <input
+          type="text"
+          ref={messageInputRef}
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder="Type your message..."
+        />
+        <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
   );
 }
+
+// ERROR
+// Cannot read properties of undefined (reading 'id')
+// TypeError: Cannot read properties of undefined (reading 'id')
+//     at http://localhost:4002/static/js/bundle.js:4815:42
+//     at commitHookEffectListMount (http://localhost:4002/static/js/bundle.js:44043:30)
+//     at commitPassiveMountOnFiber (http://localhost:4002/static/js/bundle.js:45536:17)
+//     at commitPassiveMountEffects_complete (http://localhost:4002/static/js/bundle.js:45508:13)
+//     at commitPassiveMountEffects_begin (http://localhost:4002/static/js/bundle.js:45498:11)
+//     at commitPassiveMountEffects (http://localhost:4002/static/js/bundle.js:45488:7)
+//     at flushPassiveEffectsImpl (http://localhost:4002/static/js/bundle.js:47373:7)
+//     at flushPassiveEffects (http://localhost:4002/static/js/bundle.js:47325:18)
+//     at http://localhost:4002/static/js/bundle.js:47140:13
+//     at workLoop (http://localhost:4002/static/js/bundle.js:109201:38)
