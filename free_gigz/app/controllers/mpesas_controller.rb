@@ -20,7 +20,7 @@ class MpesasController < ApplicationController
         'PartyA': phoneNumber,
         'PartyB': business_short_code,
         'PhoneNumber': phoneNumber,
-        'CallBackURL': "https://edd1-105-163-157-105.ngrok-free.app",
+        'CallBackURL': "https://59a0-105-163-157-105.ngrok-free.app",
         'AccountReference': 'Codearn',
         'TransactionDesc': "Payment for Codearn premium"
         }.to_json
