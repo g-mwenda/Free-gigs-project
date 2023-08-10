@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :messages
+  resources :conversations
   resources :mpesas
   post "/login", to:"sessions#create"
   delete "/logout", to:"sessions#destroy"
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
   post "/signup", to:"users#create"
   post '/proposals/:id/accept', to: 'proposals#accept', as: :accept_proposal
   post '/proposals/:id/reject', to: 'proposals#reject', as: :reject_proposal
+  get '/conversations', to: 'conversations#index'
 
   
   patch "/reset", to:"passwords#update_password"
