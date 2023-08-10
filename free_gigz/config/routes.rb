@@ -3,14 +3,11 @@ Rails.application.routes.draw do
   delete "/logout", to:"sessions#destroy"
   get "/me", to:"users#current_user"
   post "/signup", to:"users#create"
-<<<<<<< HEAD
-=======
   post '/proposals/:id/accept', to: 'proposals#accept', as: :accept_proposal
   post '/proposals/:id/reject', to: 'proposals#reject', as: :reject_proposal
 
   
   patch "/reset", to:"passwords#update_password"
->>>>>>> a40f0269260182a3c9c923afe43f7dc6159fa28a
 
   resources :messages
   resources :conversations
