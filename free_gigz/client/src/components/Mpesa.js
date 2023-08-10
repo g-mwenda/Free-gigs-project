@@ -23,7 +23,7 @@ function Mpesa() {
     event.preventDefault();
 
     // Perform the fetch request regardless of user role
-    fetch("https://59a0-105-163-157-105.ngrok-free.app/stkpush", {
+    fetch("https://b55c-105-163-158-46.ngrok-free.app/stkpush", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
