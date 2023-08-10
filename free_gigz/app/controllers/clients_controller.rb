@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   # New action to render the form for creating a new client
-  skip_before_action :authorize, only: [:index,:create]
+  skip_before_action :authorize, only: [:index, :create]
+
   def new
     @client = Client.new
   end
@@ -50,11 +51,10 @@ class ClientsController < ApplicationController
     redirect_to clients_url, notice: 'Client was successfully deleted.'
   end
 
-  # Private method to permit the required parameters for creating a client
   private
 
   def client_params
     params.permit(:user_id, :company_name, :company_info, :profile_picture)
+          .transform_values { |value| value.to_s.strip } # To handle any whitespace around parameters
   end
-
 end

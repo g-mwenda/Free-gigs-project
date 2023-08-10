@@ -66,7 +66,8 @@ class UsersController < ApplicationController
 def current_user
   puts "Session User ID: #{session[:user_id]}"
   user = User.find_by(id: session[:user_id])
-
+  
+  
 
   if user
     render json: {
@@ -91,9 +92,9 @@ end
     def create
       @user = User.new(user_params)
       if @user.save
-        UserMailer.with(user: @user).welcome_email.deliver_later
+        # UserMailer.with(user: @user).welcome_email.deliver_later
         # redirect_to @user, notice: 'User was successfully created.'
-        render json: @user, status: :created
+        render json: {success: "User created succesfully"}, status: :created
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
         # render :new
@@ -134,12 +135,16 @@ end
       @user.destroy
       redirect_to users_url, notice: 'User was successfully deleted.'
     end
-  
+
+
     # Private method to permit the required parameters for creating a user
     private
   
     def user_params
       params.permit(:username, :password, :email, :role)
     end
+    # def edit_params
+    #   params.permit(:username, :email, :role)
+    # end
   end
   
