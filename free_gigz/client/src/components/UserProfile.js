@@ -27,7 +27,7 @@ if (!current_user || !current_user.username) {
             <div className="col-md-10 mt-5 pt-5">
               <div className="row z-depth-3">
                 <div className="col-sm-4 bg-success-subtle rounded-left">
-                  <div className="card-block text-center text-white">
+                  <div className="card-block text-center text-Black">
                     <i className="fas fa-user-tie fa-7x mt-5"></i>
                     <h2 className="fw-bold mt-4">
                       {" "}
@@ -60,6 +60,10 @@ if (!current_user || !current_user.username) {
                       <p className="fw-bold">Joined on:</p>
                       <h6 className="text-muted">
                         {current_user && current_user.created_at}
+                      </h6>
+                      <p className="fw-bold">Role:</p>
+                      <h6 className="text-muted">
+                        {current_user && current_user.role}
                       </h6>
                     </div>
                   </div>

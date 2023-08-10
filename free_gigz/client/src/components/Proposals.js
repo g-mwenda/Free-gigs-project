@@ -161,8 +161,12 @@ function Proposals() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // Assuming the backend updates the accepted field to true
-        // You don't need to manually filter proposals here since it's done in the useEffect above
+        // Update the proposalsList after accepting a proposal
+        setProposalsList((prevProposals) =>
+          prevProposals.map((proposal) =>
+            proposal.id === proposalId ? { ...proposal, accepted: true } : proposal
+          )
+        );
       })
       .catch((error) => console.error('Error accepting proposal:', error));
   };
@@ -176,8 +180,12 @@ function Proposals() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // Assuming the backend updates the rejected field to true
-        // You don't need to manually filter proposals here since it's done in the useEffect above
+        // Update the proposalsList after rejecting a proposal
+        setProposalsList((prevProposals) =>
+          prevProposals.map((proposal) =>
+            proposal.id === proposalId ? { ...proposal, rejected: true } : proposal
+          )
+        );
       })
       .catch((error) => console.error('Error rejecting proposal:', error));
   };
@@ -199,15 +207,20 @@ function Proposals() {
   };
 
   // Filter proposals based on status for both freelancer and client
-  const proposalsForClient = proposalsList.filter((proposal) => !proposal.accepted && !proposal.rejected);
-  const proposalsForFreelancer = proposalsList.filter((proposal) => proposal.freelancer.id === current_user.user_id);
+  const proposalsForClient = proposalsList.filter(
+    (proposal) => !proposal.accepted && !proposal.rejected
+  );
+  const proposalsForFreelancer = proposalsList.filter(
+    (proposal) =>
+      proposal.freelancer.id === current_user?.user_id && !proposal.accepted && !proposal.rejected
+  );
 
   return (
     <div className="container mt-5">
       <NavbarComponent />
       <h2 className="mb-4">Proposals</h2>
       <div className="row">
-        {current_user.role === 'client'
+        {current_user?.role === 'client'
           ? proposalsForClient.map((proposal) => (
               <div key={proposal.id} className="col-lg-4 col-md-6 col-sm-12 mb-4">
                 {/* Render normal proposals for clients */}
@@ -256,10 +269,10 @@ function Proposals() {
       </div>
 
       {/* Render AcceptedProposals and RejectedProposals for both roles */}
-      {(current_user.role === 'client' || current_user.role === 'freelancer') && acceptedProposals.length > 0 && (
+      {(current_user?.role === 'client' || current_user?.role === 'freelancer') && acceptedProposals.length > 0 && (
         <AcceptedProposals acceptedProposals={acceptedProposals} />
       )}
-      {(current_user.role === 'client' || current_user.role === 'freelancer') && rejectedProposals.length > 0 && (
+      {(current_user?.role === 'client' || current_user?.role === 'freelancer') && rejectedProposals.length > 0 && (
         <RejectedProposals rejectedProposals={rejectedProposals} />
       )}
     </div>

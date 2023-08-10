@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+// import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
@@ -21,17 +21,23 @@ import FreelancerForm from "./FreelancerForm";
 import Proposals from "./Proposals";
 import Clients from "./Clients";
 import UpdateProposalForm from "./UpdateProposalForm"
-import  Conversations from "./Conversations";
+import  ConversationList from "./ConversationList";
 import AcceptedProposals from "./AcceptedProposals";
 import RejectedProposals from "./RejectedProposals";
+import ConversationsIndex from "./ConversationsIndex";
+import MessageList from "./MessageList";
+import Mpesa from "./Mpesa";
+
 
 function App() {
   
 
+  // const navigate = useNavigate();
     // const handleLogin = (userData) => {
   //   setUser(userData);
-  // };
+  // };z
   return (
+    
     <>
       <AuthProvider>
         <SystemModeProvider>
@@ -52,12 +58,16 @@ function App() {
               <Route exact path="/me" element={<UserProfile />} />  
               <Route exact path="/proposals" element={<ProposalsForm  />} />
               <Route exact path="/freelancerform" element={<FreelancerForm  />} />
-              <Route path="/conversations" element={<Conversations />} />
+              <Route path="/conversations" element={<ConversationList />} />
               <Route exact path="/jobproposals" element={<Proposals  />} />    
               <Route exact path="/clients" element={<Clients  />} />
               <Route exact path="/updateproposal/:proposalId" element={<UpdateProposalForm />} /> 
               <Route exact path="/acceptedproposals" element={<AcceptedProposals />} /> 
-              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />   
+              <Route exact path="/rejectedproposals" element={<RejectedProposals />} />  
+              <Route exact path="/messages" element={<MessageList />} />
+              <Route path="/chat" element={<ConversationsIndex />} />
+              <Route path="/mpesa" element={<Mpesa />} />
+
                     {/*element={<UpdateProposalForm />}  */}
             </Routes>
             

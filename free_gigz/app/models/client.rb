@@ -3,6 +3,7 @@ class Client < ApplicationRecord
   has_many :job_listings
 
   belongs_to :user
+  has_many :review_ratings
 
   validates :company_name, presence: true, uniqueness: true
   validates :company_info, presence: true, uniqueness: true

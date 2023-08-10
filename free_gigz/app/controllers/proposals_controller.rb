@@ -83,7 +83,7 @@
 #      end
 #    end
 class ProposalsController < ApplicationController
-  skip_before_action :authorize, only: [:index, :create]
+  skip_before_action :authorize, only: [:index, :create, :show]
 
   def accept
     proposal = Proposal.find(params[:id])

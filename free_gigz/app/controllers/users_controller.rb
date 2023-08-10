@@ -92,7 +92,7 @@ end
     def create
       @user = User.new(user_params)
       if @user.save
-        UserMailer.with(user: @user).welcome_email.deliver_later
+        # UserMailer.with(user: @user).welcome_email.deliver_later
         # redirect_to @user, notice: 'User was successfully created.'
         render json: {success: "User created succesfully"}, status: :created
       else
@@ -142,5 +142,8 @@ end
     def user_params
       params.permit(:username, :password, :email, :role)
     end
+    # def edit_params
+    #   params.permit(:username, :email, :role)
+    # end
   end
   
