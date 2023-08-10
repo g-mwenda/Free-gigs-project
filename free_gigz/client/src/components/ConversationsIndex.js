@@ -299,6 +299,9 @@
 //       </div>
 //     </>
 //   );
+
+
+
 // }
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -313,7 +316,7 @@ export default function ConversationsIndex() {
   const [currentMessages, setCurrentMessages] = useState([]);
   const [conversationSearch, setConversationSearch] = useState("");
 
-  const { user, users } = useContext(AuthContext); // Access 'user' from AuthContext
+  const { user, users } = useContext(AuthContext); // Access 'user' and 'users' from AuthContext
 
   const failureNotify = () =>
     toast.error("Message Not Sent! Please include a message before sending.");
@@ -336,8 +339,12 @@ export default function ConversationsIndex() {
   }, []);
 
   const filteredConversations = conversations.filter((conversation) =>
-    conversation.users.join(",").includes(conversationSearch)
-  );
+  Array.isArray(conversation.users) &&
+  conversation.users.some((user) => user.includes(conversationSearch))
+);
+
+
+
 
   const handleConversationSearch = (search) => {
     setConversationSearch(search);
@@ -349,10 +356,10 @@ export default function ConversationsIndex() {
   };
 
   const handleCreateConversation = (newUsername) => {
-    const users = [user, newUsername];
+    const conversationUsers = [user.username, newUsername];
     const existingConversation = conversations.find(
       (conversation) =>
-        conversation.users.sort().join(",") === users.sort().join(",")
+        conversation.users.sort().join(",") === conversationUsers.sort().join(",")
     );
 
     if (existingConversation) {
@@ -364,7 +371,7 @@ export default function ConversationsIndex() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          users,
+          users: conversationUsers,
         }),
       })
         .then((response) => response.json())

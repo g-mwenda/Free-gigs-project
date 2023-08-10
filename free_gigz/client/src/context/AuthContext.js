@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const nav = useNavigate();
-  const [current_user, setCurrentUser] = useState(null); // Set initial value to null
+  const [current_user, setCurrentUser] = useState(null);
   const [onChange, setOnChange] = useState(false);
   const [users, setUsers] = useState([]);
 
@@ -18,17 +18,14 @@ export function AuthProvider({ children }) {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
         if (response.error) {
           Swal.fire("Error", response.error, "error");
         } else if (response.success) {
-          // Show success message for successful login
           Swal.fire("Success", response.success, "success");
           nav("/home");
           setOnChange(!onChange);
         } else {
-          // If neither success nor error, show a generic error message
-          Swal.fire("Success", response.success, "success");
+          Swal.fire("Error", "Something went wrong", "error");
         }
       });
   };
@@ -41,12 +38,11 @@ export function AuthProvider({ children }) {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
         if (response.error) {
           Swal.fire("Error", response.error, "error");
         } else if (response.success) {
-          nav("/login");
           Swal.fire("Success", response.success, "success");
+          nav("/login");
           setOnChange(!onChange);
         } else {
           Swal.fire("Error", "Something went wrong", "error");
@@ -79,26 +75,36 @@ export function AuthProvider({ children }) {
       });
   }, [onChange]);
 
-
-useEffect(() => {
-  fetch("/users", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data) {
-        setUsers(data);
-      }
-    });
-}, [onChange]);
+  useEffect(() => {
+    fetch("/users", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // if (data) {
+        //   setUsers(data);
+        // }
+        if (data) {
+          // Transform the received data to match the expected structure
+          const transformedUsers = data.map((user) => ({
+            id: user.id,
+            username: user.username,
+          }));
+          setUsers(transformedUsers);
+        }
+      });
+  }, []);
 
   const contextData = {
     login,
     signup,
     logout,
     current_user,
+    users,
   };
 
-  return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+  );
 }
