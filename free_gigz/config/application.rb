@@ -12,7 +12,7 @@ module FreeGigz
     config.load_defaults 7.0
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
-    config.hosts << "59a0-105-163-157-105.ngrok-free.app"
+    config.hosts << "edd1-105-163-157-105.ngrok-free.app"
 
 
     config.before_configuration do

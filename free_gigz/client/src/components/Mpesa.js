@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import NavbarComponent from './NavbarComponent';
-import { AuthContext } from '../context/AuthContext';
-import { useContext } from 'react';
 
 function Mpesa() {
   const [formData, setFormData] = useState({
     phoneNumber: '',
     amount: '',
+    checkoutRequestID: '',
+    merchantRequestID: '',
+    mpesaReceiptNumber: '',
   });
-
-  const current_user = useContext(AuthContext);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -21,105 +19,63 @@ function Mpesa() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Perform the fetch request regardless of user role
-    fetch("https://59a0-105-163-157-105.ngrok-free.app/stkpush", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server, e.g., show a success message
-        console.log("M-Pesa request submitted:", data);
-
-        // Redirect to the completed form page after successful submission
-        //navigate("/completed-form");
-      })
-      .catch((error) => {
-        // Handle error, e.g., show an error message to the user
-        console.error("Error submitting M-Pesa request:", error);
-      });
+    // You can perform further actions here, such as sending the data to a server
+    console.log('Form data submitted:', formData);
   };
 
   return (
-    <>
-      <NavbarComponent />
-      <div style={containerStyle}>
-        <h2 style={headingStyle}>M-Pesa Form</h2>
-        <form onSubmit={handleSubmit}>
-          <div style={inputGroupStyle}>
-            <label style={labelStyle}>Phone Number:</label>
-            <input
-              type="text"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-              style={inputStyle}
-            />
-          </div>
-          <div style={inputGroupStyle}>
-            <label style={labelStyle}>Amount:</label>
-            <input
-              type="text"
-              name="amount"
-              value={formData.amount}
-              onChange={handleInputChange}
-              style={inputStyle}
-            />
-          </div>
-          <button type="submit" style={submitButtonStyle}>
-            Submit
-          </button>
-        </form>
-      </div>
-    </>
+    <div>
+      <h2>Mpesa Form</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Phone Number:</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Amount:</label>
+          <input
+            type="text"
+            name="amount"
+            value={formData.amount}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Checkout Request ID:</label>
+          <input
+            type="text"
+            name="checkoutRequestID"
+            value={formData.checkoutRequestID}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Merchant Request ID:</label>
+          <input
+            type="text"
+            name="merchantRequestID"
+            value={formData.merchantRequestID}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Mpesa Receipt Number:</label>
+          <input
+            type="text"
+            name="mpesaReceiptNumber"
+            value={formData.mpesaReceiptNumber}
+            onChange={handleInputChange}
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
-
-// Inline Styles
-const containerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '20px',
-  backgroundColor: '#f0f0f0',
-  borderRadius: '8px',
-  boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-};
-
-const headingStyle = {
-  fontSize: '24px',
-  marginBottom: '16px',
-};
-
-const inputGroupStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  marginBottom: '12px',
-};
-
-const labelStyle = {
-  fontSize: '16px',
-  marginBottom: '6px',
-};
-
-const inputStyle = {
-  padding: '8px',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-};
-
-const submitButtonStyle = {
-  padding: '8px 16px',
-  backgroundColor: '#007bff',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '4px',
-  cursor: 'pointer',
-};
 
 export default Mpesa;
