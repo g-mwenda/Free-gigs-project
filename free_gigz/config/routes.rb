@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :messages
-  resources :conversations
   resources :mpesas
   post "/login", to:"sessions#create"
   delete "/logout", to:"sessions#destroy"

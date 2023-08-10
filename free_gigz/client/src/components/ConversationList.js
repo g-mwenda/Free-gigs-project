@@ -822,12 +822,12 @@ export default function ConversationList({
       >
         <div className={`card-header colors`}>
           <div
-            className="d-flex justify-content-center text-white"
+            className="d-flex justify-content-center text-black"
             style={{ cursor: "pointer", width: "100%" }}
             onClick={() => setShowUsersDropdown(!showUsersDropdown)}
           >
             <p className="m-1 fs-6">New Conversation</p>
-            <BsPencilSquare style={{ color: "white" }} size={25} />
+            <BsPencilSquare style={{ color: "black" }} size={25} />
           </div>
           {showUsersDropdown ? (
             <div className="d-flex justify-content-center mb-4" style={{ width: "100%" }}>
