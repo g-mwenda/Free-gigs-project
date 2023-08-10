@@ -17,11 +17,14 @@ class JobListingsController < ApplicationController
     end
   end
 
-git   def create
+  def create
     
-    all_params = create_params.merge(client: client)
+ 
+    user = User.find_by(id: session[:user_id])
+    client = Client.find_by(user_id: user.id)
+  
+    all_params = create_params.merge(client: client) 
     job_listing = JobListing.new(all_params)
-
 
     if job_listing.save
       render json: { success: "Job listing created successfully" }
@@ -67,5 +70,14 @@ git   def create
     end
   end
 
+  private 
+  def create_params
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  end
+
+  def update_params
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  end
   # ...
 end
+
