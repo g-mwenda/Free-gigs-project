@@ -59,6 +59,11 @@ export default function NavbarComponent() {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/completedform" className="nav-link">
+                  Completed Projects
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/conversations" className="nav-link">
                   conversations
                 </Link>
@@ -90,10 +95,16 @@ export default function NavbarComponent() {
               </Link>
             </li>
             <li className="nav-item">
+                <Link to="/completedform" className="nav-link">
+                  Completed Projects
+                </Link>
+              </li>
+            <li className="nav-item">
                 <Link to="/conversations" className="nav-link">
                   Conversations
                 </Link>
               </li>
+            
             </>
           )}
         </ul>

@@ -1,0 +1,107 @@
+/* completedproject.css */
+.completed-projects-container {
+     padding: 2rem;
+   }
+   
+   .completed-projects-content {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+   }
+   
+   .completed-projects-grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr); /* 3 columns on big screens */
+     grid-gap: 1rem;
+   }
+   
+   /* For small screens */
+   @media screen and (max-width: 992px) {
+     .completed-projects-grid {
+       grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+     }
+   }
+   
+   /* For mobile screens */
+   @media screen and (max-width: 576px) {
+     .completed-projects-grid {
+       grid-template-columns: 1fr; /* 1 column on mobile screens */
+     }
+   }
+   
+   .custom-card {
+     width: 290px;
+     height: 500px;
+     border-radius: 20px;
+     background: #f5f5f5;
+     position: relative;
+     padding: 1.8rem;
+     border: 2px solid #c3c6ce;
+     transition: 0.5s ease-out;
+     overflow: visible;
+   }
+   
+   .custom-card-details {
+     color: black;
+     height: 100%;
+     gap: 0.5em;
+     display: grid;
+     place-content: center;
+   }
+   
+   .custom-card:hover {
+     border-color: #008bf8;
+     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+   }
+   
+   .custom-text-body {
+     color: rgb(134, 134, 134);
+   }
+   
+   .custom-text-title {
+     font-size: 1.5em;
+     font-weight: bold;
+   }
+   
+   .dropdown {
+     position: relative;
+     display: inline-block;
+   }
+   
+   .dropbtn {
+     background-color: #008bf8;
+     color: white;
+     padding: 8px;
+     font-size: 16px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+   }
+   
+   .dropbtn:hover {
+     background-color: #0071bd;
+   }
+   
+   .dropdown-content {
+     display: none;
+     position: absolute;
+     background-color: #f9f9f9;
+     min-width: 160px;
+     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+     z-index: 1;
+   }
+   
+   .dropdown-content p {
+     color: black;
+     padding: 12px 16px;
+     text-decoration: none;
+     display: block;
+   }
+   
+   .dropdown-content p:hover {
+     background-color: #f1f1f1;
+   }
+   
+   .dropdown:hover .dropdown-content {
+     display: block;
+   }
