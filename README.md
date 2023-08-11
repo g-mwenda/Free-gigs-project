@@ -586,7 +586,7 @@ Congrats on setting up your Rails/React project! 🎉
 
 In this guide, you:
 
-Created a new Rails API application
+Created Freegigz project
 Configured cookies and sessions
 Added a React frontend
 Set up a GitHub repository
@@ -602,4 +602,4 @@ Resources
 Rails/React project template
 Proxying API Requests in Create React App
 Getting Started with Ruby on Rails on Render
-Render Databases Guid
+Render Databases Guide
