@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_09_085235) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "access_tokens", force: :cascade do |t|
     t.string "token"
     t.datetime "created_at", null: false
@@ -18,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "company_name"
     t.text "company_info"
     t.string "profile_picture"
@@ -28,27 +31,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
   end
 
   create_table "completed_projects", force: :cascade do |t|
-    t.integer "freelancer_id", null: false
-    t.integer "client_id", null: false
+    t.bigint "freelancer_id", null: false
+    t.bigint "client_id", null: false
     t.integer "project_status"
     t.date "completed_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "job_listing_id", null: false
+    t.bigint "job_listing_id", null: false
     t.string "new_project_status"
     t.index ["client_id"], name: "index_completed_projects_on_client_id"
     t.index ["freelancer_id"], name: "index_completed_projects_on_freelancer_id"
     t.index ["job_listing_id"], name: "index_completed_projects_on_job_listing_id"
   end
 
-  create_table "conversations", force: :cascade do |t|
-    t.string "users"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "freelancers", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "name"
     t.text "portfolio"
     t.string "skills"
@@ -59,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
   end
 
   create_table "job_listings", force: :cascade do |t|
-    t.integer "client_id", null: false
+    t.bigint "client_id", null: false
     t.string "title"
     t.text "description"
     t.float "budget"
@@ -67,15 +64,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_job_listings_on_client_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.text "body"
-    t.string "sender"
-    t.integer "conversation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "mpesas", force: :cascade do |t|
@@ -89,8 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
   end
 
   create_table "proposals", force: :cascade do |t|
-    t.integer "freelancer_id", null: false
-    t.integer "job_listing_id", null: false
+    t.bigint "freelancer_id", null: false
+    t.bigint "job_listing_id", null: false
     t.text "project_details"
     t.float "cost_estimate"
     t.string "timeline"
@@ -103,11 +91,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
   end
 
   create_table "review_ratings", force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.integer "freelancer_id", null: false
+    t.bigint "client_id", null: false
+    t.bigint "freelancer_id", null: false
     t.integer "rating"
     t.text "review"
-    t.integer "completed_project_id", null: false
+    t.bigint "completed_project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_review_ratings_on_client_id"
@@ -131,7 +119,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
   add_foreign_key "completed_projects", "job_listings"
   add_foreign_key "freelancers", "users"
   add_foreign_key "job_listings", "clients"
-  add_foreign_key "messages", "conversations"
   add_foreign_key "proposals", "freelancers"
   add_foreign_key "proposals", "job_listings"
   add_foreign_key "review_ratings", "clients"
