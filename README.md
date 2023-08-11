@@ -1,4 +1,11 @@
 # Freegiz Project Setup Guide
+## Authors
+1. Consolatta Tuwei -https://github.com/ConsolattaChepchirchir
+2. Allan Losenge    - https://github.com/AllanLosenge
+3. Gabriel Mwenda   -https://github.com/g-mwenda
+4. Thomas Kambale   -https://github.com/TomKambale
+5. Gerald Obede     -https://github.com/GeraldObede
+6. Jesse Mutua      -https://github.com/jessemutua
 
 Set up free_gigz project with a Rails API backend and React frontend from scratch
 
