@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/LandingPage.css";
 import Footer from "./Footer";
+import NavbarComponent from "./NavbarComponent";
 
 const landingPageStyle = {
   height: "100vh",
@@ -10,7 +11,7 @@ const landingPageStyle = {
   justifyContent: "flex-start", // Align content at the start (left side)
   alignItems: "center",
   padding: "0 0px", // Add some padding for better spacing
-  backgroundColor: "rgb(224, 180, 96)", // Add the background color here
+  backgroundColor: "#D2B48C", // Add the background color here
 
 
 };
@@ -39,6 +40,7 @@ export default function LandingPage() {
 
   return (
     <div>
+      <NavbarComponent />
     <div style={landingPageStyle}>
       <div style={imageContainerStyle}>
         <img

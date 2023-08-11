@@ -1,0 +1,14 @@
+div.actions {
+     display: none;
+   }
+   
+   div.actions:hover {
+     display: block;
+   }
+   
+   .align-items-center {
+     display: flex; 
+     align-items: center;  /*Aligns vertically center */
+     justify-content: center; /*Aligns horizontally center */
+     text-align: center;
+   }

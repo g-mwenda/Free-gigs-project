@@ -1,13 +1,17 @@
+
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
 import ProposalsForm from "./ProposalsForm";
-import { useUser } from "./App"; // Update the path accordingly
 import NavbarComponent from "./NavbarComponent";
 import JobListingItem from "./JobListingItem"; // Import the JobListingItem component
+import { AuthContext } from "../context/AuthContext";
+import joblistingcard from "../styles/joblistingcard.css";
+import { Link } from "react-router-dom";
 
 export default function JobListing() {
   const [jobListings, setJobListings] = useState([]);
-  const [proposalData, setProposalData] = useState({}); // Add proposalData state
-  const user = useUser(); // Access the user context using the useUser hook
+  const [proposalData, setProposalData] = useState({});
+  const { current_user } = useContext(AuthContext);
 
   useEffect(() => {
     fetch("/job_listings")
@@ -26,9 +30,13 @@ export default function JobListing() {
     <div className="container mt-5">
       <NavbarComponent />
       <h2 className="mb-4">Job Listings</h2>
-      {jobListings.map((job) => (
-        <JobListingItem key={job.id} job={job} />
-      ))}
+      <div className="row">
+        {jobListings.map((job) => (
+          <div key={job.id} className="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <JobListingItem job={job} /> {/* Pass the 'job' prop here */}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

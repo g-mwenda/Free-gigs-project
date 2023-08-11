@@ -1,10 +1,12 @@
 class JobListingsController < ApplicationController
   # ...
-
+  skip_before_action :authorize, only: [:index, :create, :show  ]
   def index
-    joblistings = JobListing.all
+    joblistings = JobListing.includes(:client).all.as_json(include: { client: { only: :name } })
     render json: joblistings
   end
+  
+  
 
   def show
     joblisting = JobListing.find_by(id: params[:id])
@@ -16,17 +18,29 @@ class JobListingsController < ApplicationController
   end
 
   def create
-    job_listing = JobListing.new(create_params)
+    
+ 
+    user = User.find_by(id: session[:user_id])
+    client = Client.find_by(user_id: user.id)
+  
+    all_params = create_params.merge(client: client) 
+    job_listing = JobListing.new(all_params)
 
     if job_listing.save
       render json: { success: "Job listing created successfully" }
     else
+      puts(job_listing.errors.full_messages)
       render json: { errors: job_listing.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def create_params
-    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+    user = User.find_by(id: session[:user_id])
+    puts("Hello")
+    puts(user.id)
+    client = Client.find_by(user_id: user.id)
+    puts(client.id)
+    params.require(:job_listing).permit( :title, :description, :budget, :deadline)
   end
 
   def update
@@ -43,7 +57,7 @@ class JobListingsController < ApplicationController
   end
 
   def update_params
-    params.require(:job_listing).permit(:title, :description, :budget, :deadline)
+    params.require(:job_listing).permit( :title, :description, :budget, :deadline, :client_id => 1)
   end
 
   def destroy
@@ -56,5 +70,14 @@ class JobListingsController < ApplicationController
     end
   end
 
+  private 
+  def create_params
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  end
+
+  def update_params
+    params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
+  end
   # ...
 end
+

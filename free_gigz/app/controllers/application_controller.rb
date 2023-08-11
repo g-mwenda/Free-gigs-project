@@ -11,5 +11,11 @@ class ApplicationController < ActionController::API
         end
      
      end
+# changes Tom// FAILED
+   #   private
+
+   #   def current_client_id
+   #     current_user.client.id if current_user.client
+   #   end
   end
    
