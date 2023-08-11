@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_204018) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_09_194503) do
+  create_table "access_tokens", force: :cascade do |t|
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "clients", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "company_name"
@@ -24,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_204018) do
   create_table "completed_projects", force: :cascade do |t|
     t.integer "freelancer_id", null: false
     t.integer "client_id", null: false
-    t.string "project_status"
+    t.integer "project_status"
     t.date "completed_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,15 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_204018) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.integer "freelancer_id", null: false
-    t.integer "client_id", null: false
-    t.integer "last_message_id", null: false
-    t.integer "last_message_sender"
+    t.string "users"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_conversations_on_client_id"
-    t.index ["freelancer_id"], name: "index_conversations_on_freelancer_id"
-    t.index ["last_message_id"], name: "index_conversations_on_last_message_id"
   end
 
   create_table "freelancers", force: :cascade do |t|
@@ -70,15 +70,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_204018) do
   end
 
   create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.string "sender"
     t.integer "conversation_id", null: false
-    t.integer "client_id", null: false
-    t.integer "freelancer_id", null: false
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_messages_on_client_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
-    t.index ["freelancer_id"], name: "index_messages_on_freelancer_id"
+  end
+
+  create_table "mpesas", force: :cascade do |t|
+    t.string "phoneNumber"
+    t.string "amount"
+    t.string "checkoutRequestID"
+    t.string "merchantRequestID"
+    t.string "mpesaReceiptNumber"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "proposals", force: :cascade do |t|
@@ -122,14 +129,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_204018) do
   add_foreign_key "completed_projects", "clients"
   add_foreign_key "completed_projects", "freelancers"
   add_foreign_key "completed_projects", "job_listings"
-  add_foreign_key "conversations", "clients"
-  add_foreign_key "conversations", "freelancers"
-  add_foreign_key "conversations", "last_messages"
   add_foreign_key "freelancers", "users"
   add_foreign_key "job_listings", "clients"
-  add_foreign_key "messages", "clients"
   add_foreign_key "messages", "conversations"
-  add_foreign_key "messages", "freelancers"
   add_foreign_key "proposals", "freelancers"
   add_foreign_key "proposals", "job_listings"
   add_foreign_key "review_ratings", "clients"

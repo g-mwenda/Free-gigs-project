@@ -64,8 +64,13 @@ export default function NavbarComponent() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/conversations" className="nav-link">
-                  conversations
+                <Link to="/chat" className="nav-link">
+                  Chats
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/mpesa" className="nav-link">
+                  Mpesa
                 </Link>
               </li>
             </>
@@ -100,8 +105,8 @@ export default function NavbarComponent() {
                 </Link>
               </li>
             <li className="nav-item">
-                <Link to="/conversations" className="nav-link">
-                  Conversations
+                <Link to="/chat" className="nav-link">
+                  Chats
                 </Link>
               </li>
             

@@ -174,7 +174,7 @@ return (
         >
           <option value="">Select Role</option>
           <option value="freelancer">Freelancer</option>
-          <option value="client">client</option>
+          <option value="client">Client</option>
           {/* Add more role options as needed */}
         </select>
         <label htmlFor="floatingRole">Role</label>
