@@ -1,40 +1,4 @@
 
-// import React from 'react';
-// import { NavLink } from 'react-router-dom';
-// // import Login from "../pages/Login";
-
-// // import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <div className="navbar">
-//         <img src="logo.png" alt="Freegigs Logo" />
-//         <div>
-//           <div className="company-name">Freegigs</div>
-//           <a href="#home">Home</a>
-//           <a href="#about">About Us</a>
-//           <div className="dropdown" id="userDropdown">
-//             <button className="dropbtn">Get Started</button>
-//             <div className="dropdown-content">
-//               <a href="/Login">Client</a>
-//               <a href="#freelancer">Freelancer</a>
-//               <a href="#admin">Admin</a>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="image">
-//                 <img src="freelance.png" alt="image" />
-
-//       <div className='content'>Free-gigs Application entails  choosing a  freelancer of choice based on the task  you need completed and also applying for 
-// tasks from the client based on your skills and expertise. To begin, Sign up/Login into your account.  </div>
-//     </div>
-//     </div>
-//   );
-// }
-
-// export default App;
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 

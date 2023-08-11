@@ -23,7 +23,7 @@ function Mpesa() {
     event.preventDefault();
 
     // Perform the fetch request regardless of user role
-    fetch("https://b55c-105-163-158-46.ngrok-free.app/", {
+    fetch("https://b55c-105-163-158-46.ngrok-free.app/stkpush", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ function Mpesa() {
         <h2 style={headingStyle}>M-Pesa Form</h2>
         <form onSubmit={handleSubmit}>
           <div style={inputGroupStyle}>
-            <label style={labelStyle}>Phone Number:</label>
+            <label style={labelStyle}>Client contact:</label>
             <input
               type="text"
               name="phoneNumber"

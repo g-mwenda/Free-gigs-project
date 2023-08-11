@@ -3,7 +3,7 @@ import "./jobListingForm.css"; // Import the CSS file
 import NavbarComponent from "./NavbarComponent";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
-// import swal from "sweetalert2"; // Import SweetAlert
+
 
 export default function JobListingForm() {
   const [title, setTitle] = useState("");
@@ -50,6 +50,7 @@ export default function JobListingForm() {
 
           // Show error message using SweetAlert
           // swal("Error!", "Failed to post job listing", "error");
+         
         });
     }
   }

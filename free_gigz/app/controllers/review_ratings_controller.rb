@@ -1,5 +1,6 @@
 class ReviewRatingsController < ApplicationController
-     ###get all reviews
+
+  skip_before_action :authorize, only: [:index,:create]  ###get all reviews
      def index 
           reviews = ReviewRating.all 
           render json: reviews, include: :completed_project

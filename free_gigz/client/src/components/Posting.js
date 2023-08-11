@@ -21,25 +21,6 @@ export default function Posting({ posting, onEdit, onDelete }) {
           <p class="card-text">
             ${posting.price} • {posting.price_unit}
           </p>
-          {/* {posting ? 
-            <p class="card-text">
-              {posting.categories.map((category) => {
-                return (
-                  <span
-                    key={category.index}
-                    className={`posting__category colors-${
-                      posting.posting_type
-                        ? posting.posting_type.toLowerCase()
-                        : ""
-                    }`}
-                  >
-                    {category}
-                  </span>
-                );
-              })}
-            </p>
-            : null
-          } */}
         </div>
         <div class="btn-group card-footer text-muted">
           <form class="container-fluid justify-content-start">

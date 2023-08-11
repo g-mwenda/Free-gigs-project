@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import Footer from "./Footer";
 import loginstyles from "../styles/loginstyles.css";
 import NavbarComponent from "./NavbarComponent";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -18,6 +19,7 @@ export default function Login() {
     setPassword("");
     setUsername("");
     navigate("/home");
+    Swal.fire("Success", "Login successfully", "success");
   };
 
   return (
