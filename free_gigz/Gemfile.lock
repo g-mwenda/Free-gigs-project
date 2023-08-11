@@ -139,6 +139,7 @@ GEM
       version_gem (~> 1.1)
     oauth-tty (1.0.5)
       version_gem (~> 1.1, >= 1.1.1)
+    pg (1.5.3)
     public_suffix (5.0.3)
     puma (5.6.6)
       nio4r (~> 2.0)
@@ -187,7 +188,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sqlite3 (1.6.3-x86_64-linux)
+    spring (4.1.1)
     thor (1.2.2)
     timeout (0.4.0)
     tzinfo (2.0.6)
@@ -212,11 +213,12 @@ DEPENDENCIES
   letter_opener
   mail
   mail_form
+  pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.6)
   rest-client
-  sqlite3 (~> 1.4)
+  spring
   tzinfo-data
 
 RUBY VERSION
