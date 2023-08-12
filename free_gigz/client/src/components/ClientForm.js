@@ -1,8 +1,9 @@
 import React, { useState, useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
-import clientform from "../styles/clientform.css"
-import NavbarComponent from "./NavbarComponent"
+import clientform from "../styles/clientform.css";
+import NavbarComponent from "./NavbarComponent";
+import Swal from "sweetalert2";
 
 
 export default function ClientForm() {
@@ -34,6 +35,7 @@ export default function ClientForm() {
         .then((data) => {
           // Handle the response from the server, e.g., show a success message
           console.log("Profile created successfully:", data);
+          Swal.fire("Success", "Profile created successfully", "success");
 
           // Reset the form fields after successful submission
           setCompanyName("");
@@ -46,10 +48,12 @@ export default function ClientForm() {
         .catch((error) => {
           // Handle error, e.g., show an error message to the user
           console.error("Error creating profile:", error);
+          Swal.fire("Success", "Error creating profile", "success");
         });
     } else {
       // Handle the case when the user object is null or doesn't have the 'id' property
       console.error("User is not a client. Cannot submit profile.");
+      Swal.fire("Error", "User is not a client. Cannot submit profile.", "error");
     }
   };
 
@@ -101,21 +105,3 @@ export default function ClientForm() {
     </div>
   );
 }
-
-
-// <form class="form">
-//   <p>Login</p>
-//   <div class="group">
-//     <input required="true" class="main-input" type="text">
-//     <span class="highlight-span"></span>
-//     <label class="lebal-email">Email</label>
-//   </div>
-//   <div class="container-1">
-//     <div class="group">
-//       <input required="true" class="main-input" type="text">
-//       <span class="highlight-span"></span>
-//       <label class="lebal-email">password</label>
-//     </div>
-//   </div>
-//   <button class="submit">submit</button>
-// </form>

@@ -20,15 +20,18 @@ export function AuthProvider({ children }) {
       .then((response) => {
         if (response.error) {
           Swal.fire("Error", response.error, "error");
-        } else if (response.success) {
-          Swal.fire("Success", response.success, "success");
+        } else {
+          Swal.fire("Success", "Login successful", "success");
           nav("/home");
           setOnChange(!onChange);
-        } else {
-          Swal.fire("Error", "Something went wrong", "error");
         }
+      })
+      .catch((error) => {
+        Swal.fire("Error", "Something went wrong", "error");
+        console.error("Error during login:", error);
       });
   };
+  
 
   const signup = (username, email, role, password) => {
     fetch("/signup", {

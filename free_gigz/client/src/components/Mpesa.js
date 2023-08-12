@@ -51,7 +51,7 @@ function Mpesa() {
         <h2 style={headingStyle}>M-Pesa Form</h2>
         <form onSubmit={handleSubmit}>
           <div style={inputGroupStyle}>
-            <label style={labelStyle}>Phone Number:</label>
+            <label style={labelStyle}>Client contact:</label>
             <input
               type="text"
               name="phoneNumber"

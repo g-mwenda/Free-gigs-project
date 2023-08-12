@@ -81,7 +81,3 @@ class JobListingsController < ApplicationController
   # ...
 end
 
-
-  # def create_params
-  #   params.require(:job_listing).permit(:client_id, :title, :description, :budget, :deadline)
-  # end

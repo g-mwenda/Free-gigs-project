@@ -41,7 +41,7 @@ export default function JobListingForm() {
           setDeadline("");
 
           // Show success message using SweetAlert
-         
+          // swal("Success!", "Job listing posted successfully", "success");
           console.log("Job listing posted successfully:", data);
         })
         .catch((error) => {
@@ -49,6 +49,7 @@ export default function JobListingForm() {
           console.error("Error posting job listing:", error);
 
           // Show error message using SweetAlert
+          // swal("Error!", "Failed to post job listing", "error");
          
         });
     }
@@ -79,7 +80,6 @@ export default function JobListingForm() {
               <div className="form-group">
                 <label htmlFor="description">Description:</label>
                 <textarea
-                type="text"
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -91,7 +91,7 @@ export default function JobListingForm() {
               <div className="form-group">
                 <label htmlFor="budget">Budget:</label>
                 <input
-                  type="number"
+                  type="text"
                   id="budget"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}

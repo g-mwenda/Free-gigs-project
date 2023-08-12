@@ -1,5 +1,6 @@
 class ReviewRatingsController < ApplicationController
-     ###get all reviews
+
+  skip_before_action :authorize, only: [:index,:create]  ###get all reviews
      def index 
           reviews = ReviewRating.all 
           render json: reviews, include: :completed_project
@@ -11,6 +12,7 @@ class ReviewRatingsController < ApplicationController
      def review_rating_params
        params.permit(:client_id, :freelancer_id, :rating, :review, :completed_project_id)
      end
+     
     def create
       completed_project = CompletedProject.find(params[:completed_project_id])
       user = User.find_by(id: params[:id])

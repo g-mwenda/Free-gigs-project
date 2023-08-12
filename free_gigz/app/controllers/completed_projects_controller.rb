@@ -1,5 +1,6 @@
 class CompletedProjectsController < ApplicationController
     # List all completed projects
+    skip_before_action :authorize, only: [:index,:create ]
     def index
       completed_projects = CompletedProject.all
       render json: completed_projects

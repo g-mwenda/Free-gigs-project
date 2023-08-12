@@ -13,6 +13,7 @@ module FreeGigz
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     config.hosts << "b55c-105-163-158-46.ngrok-free.app"
+    config.action_dispatch.cookies_same_site_protection = :strict
 
 
     config.before_configuration do

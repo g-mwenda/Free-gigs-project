@@ -5,6 +5,7 @@ import { Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png"; // Update the path based on your project structure
+import Swal from "sweetalert2";
 
 export default function NavbarComponent() {
   const { current_user, logout } = useContext(AuthContext);
@@ -13,6 +14,7 @@ export default function NavbarComponent() {
 
   const handleLogout = () => {
     logout();
+    Swal.fire("Success", "See you soon", "success");
     navigate("/login");
   };
 
@@ -33,13 +35,23 @@ export default function NavbarComponent() {
           {current_user && current_user.role === "client" && (
             <>
               <li className="nav-item">
-                <Link to="/joblisting" className="nav-link">
-                  Job Listing
+                <Link to="/client" className="nav-link">
+                  Client registration
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/joblistingform" className="nav-link">
-                  Job Listing Form
+                  Create a Job 
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/joblisting" className="nav-link">
+                  Jobs
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/jobproposals" className="nav-link">
+                  Proposals
                 </Link>
               </li>
               <li className="nav-item">
@@ -47,32 +59,22 @@ export default function NavbarComponent() {
                   Freelancers
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/client" className="nav-link">
-                  Client registration form
-                </Link>
-              </li>
               {/* added link to proposals - Tom */}
-              <li className="nav-item">
-                <Link to="/jobproposals" className="nav-link">
-                  Proposals
-                </Link>
-              </li>
               <li className="nav-item">
                 <Link to="/completedform" className="nav-link">
                   Completed Projects
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/chat" className="nav-link">
                   Chats
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <Link to="/mpesa" className="nav-link">
                   Mpesa
                 </Link>
-              </li>
+              </li> */}
             </>
           )}
           {current_user && current_user.role === "freelancer" && (
@@ -104,9 +106,14 @@ export default function NavbarComponent() {
                   Completed Projects
                 </Link>
               </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
                 <Link to="/chat" className="nav-link">
                   Chats
+                </Link>
+              </li> */}
+              <li className="nav-item">
+                <Link to="/mpesa" className="nav-link">
+                  Mpesa
                 </Link>
               </li>
             
@@ -120,7 +127,7 @@ export default function NavbarComponent() {
           {current_user && location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/" ? (
             <>
               <Link to="/" className="btn btn-success me-3">
-                Landing Page
+                Home
               </Link>
               <Link to="/me" className="btn btn-success me-3">
                 Profile

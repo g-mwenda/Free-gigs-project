@@ -6,9 +6,4 @@ class UserMailer < ApplicationMailer
        @url  = 'http://example.com/login'
        mail(to: @user.email, subject: 'Welcome to Free-gigz Site')
      end
-
-     def password_update_email 
-        @user = params[:user]
-        mail(to: @user.email, subject: 'Password change')
-     end
 end
